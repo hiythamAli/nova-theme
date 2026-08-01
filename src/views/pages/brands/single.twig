@@ -1,0 +1,36 @@
+{#
+    NOVA Single Brand — src/views/pages/brands/single.twig
+    Confirmed exact path (theme-raed directory listing). Reuses the
+    Products Listing markup pattern for the brand's product grid.
+    VERIFICATION NEEDED: `brand.logo`/`.name`/`.description` inferred.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <div class="nova-brand-header">
+            {% if brand.logo %}
+                <img src="{{ brand.logo }}" alt="{{ brand.name }}" class="nova-brand-header__logo">
+            {% endif %}
+            <h1 class="nova-listing-heading">{{ brand.name }}</h1>
+            {% if brand.description %}
+                <p class="nova-product-single__subtitle">{{ brand.description }}</p>
+            {% endif %}
+        </div>
+
+        {% include 'partials/product/toolbar.twig' %}
+
+        <div class="nova-grid">
+            {% for product in products %}
+                <div class="nova-col-6 nova-col-tablet-4 nova-col-desktop-3 nova-col-wide-2">
+                    {% include 'partials/product/card.twig' %}
+                </div>
+            {% else %}
+                <p class="nova-listing__empty">{{ trans('pages.categories.no_products') }}</p>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/product/pagination.twig' %}
+    </div>
+{% endblock %}

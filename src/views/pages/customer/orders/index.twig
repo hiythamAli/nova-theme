@@ -1,0 +1,40 @@
+{#
+    NOVA Orders List — src/views/pages/customer/orders/index.twig
+    Path inferred from the confirmed sibling
+    src/views/pages/customer/orders/single.twig (docs.salla.dev/422556m0
+    confirms "Orders list" as an official Customer Page, and the
+    order-details path, but not this index path's exact filename verbatim)
+    — following the index/single pairing pattern used everywhere else
+    (product, blog, brands). VERIFICATION NEEDED: `orders` collection
+    field names inferred by convention.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('order.my_orders') }}</h1>
+
+        <div class="nova-orders-list">
+            {% for order in orders %}
+                <a href="{{ order.url | default('#') }}" class="nova-orders-list__item">
+                    <div>
+                        <span class="nova-orders-list__reference">
+                            {{ trans('order.reference') }}: {{ order.reference_id | default(order.id) }}
+                        </span>
+                        <span class="nova-text-xs" style="color: var(--nova-color-text-light)">
+                            {{ order.created_at }}
+                        </span>
+                    </div>
+                    <span class="nova-badge nova-badge--outline">{{ order.status }}</span>
+                    <span class="nova-orders-list__total">{{ order.total | money }}</span>
+                </a>
+            {% else %}
+                <p class="nova-listing__empty">{{ trans('order.no_orders') }}</p>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/product/pagination.twig' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{#
+    NOVA Order Details — src/views/pages/customer/orders/single.twig
+    Confirmed exact path (docs.salla.dev/422556m0: "Customer order details
+    page is located at src/views/pages/customer/orders/single.twig").
+    VERIFICATION NEEDED: `order.items[]` and status-timeline field names
+    inferred by convention, not confirmed.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">
+            {{ trans('order.reference') }}: {{ order.reference_id | default(order.id) }}
+        </h1>
+
+        <div class="nova-order-items">
+            {% for item in order.items %}
+                <div class="nova-product-card-mini nova-order-items__item">
+                    <div class="nova-product-card-mini__media">
+                        <img src="{{ item.product_image | default('') }}" alt="{{ item.product_name | default('') }}" loading="lazy">
+                    </div>
+                    <div class="nova-product-card-mini__body">
+                        <span>{{ item.product_name }}</span>
+                        <span class="nova-text-xs">{{ trans('pages.cart.total') }}: {{ item.total | money }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <p class="nova-order-items__grand-total">
+            <span>{{ trans('pages.cart.total') }}:</span>
+            <span>{{ order.total | money }}</span>
+        </p>
+    </div>
+{% endblock %}

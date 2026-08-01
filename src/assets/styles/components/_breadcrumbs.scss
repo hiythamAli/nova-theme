@@ -1,0 +1,35 @@
+@use '../abstracts/functions' as f;
+
+// =============================================================================
+// NOVA BREADCRUMBS
+// =============================================================================
+
+.nova-breadcrumbs__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: f.spacing('8');
+  padding-block: f.spacing('12');
+  list-style: none;
+  font-size: var(--nova-text-sm);
+  color: f.color('text-secondary');
+}
+
+.nova-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: f.spacing('8');
+
+  a {
+    color: f.color('text-secondary');
+
+    &:hover {
+      color: f.color('text-primary');
+    }
+  }
+}
+
+.nova-breadcrumbs__sep {
+  font-size: f.icon-size('xs');
+  color: f.color('text-light');
+}

@@ -1,0 +1,23 @@
+{#
+    NOVA Breadcrumbs — src/views/components/header/breadcrumbs.twig
+    Confirmed (docs.salla.dev/422601m0): `breadcrumbs` is an array of
+    objects, each described by `title` and `url`.
+    Icon slugs below (sicon-arrow-left/right) are inferred from the
+    `sicon-` naming convention, not confirmed against the icon library —
+    check the CodePen reference linked from the Salla Icons doc.
+#}
+
+<nav class="nova-breadcrumbs" aria-label="{{ trans('common.breadcrumb') }}">
+    <ol class="nova-breadcrumbs__list">
+        {% for crumb in breadcrumbs %}
+            <li class="nova-breadcrumbs__item">
+                {% if not loop.last %}
+                    <a href="{{ crumb.url }}">{{ crumb.title }}</a>
+                    <i class="sicon-arrow-{{ trans('lang.dir') == 'rtl' ? 'left' : 'right' }} nova-breadcrumbs__sep" aria-hidden="true"></i>
+                {% else %}
+                    <span aria-current="page">{{ crumb.title }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>

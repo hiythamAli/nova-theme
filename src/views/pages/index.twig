@@ -1,0 +1,10 @@
+{% extends "layouts.master" %}
+
+{% block content %}
+    {% include 'partials/structured-data/organization.twig' %}
+    {% component home %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" defer src="{{ 'home.js' | asset('dist') }}"></script>
+{% endblock %}

@@ -1,0 +1,49 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA TOOLTIP
+// Pure CSS: <button data-tooltip="Text">...</button>. Shows on :hover AND
+// :focus-visible so keyboard users get the same information — no JS needed.
+// =============================================================================
+
+[data-tooltip] {
+  position: relative;
+
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    inset-block-end: calc(100% + #{f.spacing('8')});
+    inset-inline-start: 50%;
+    transform: translateX(-50%) translateY(4px);
+    white-space: nowrap;
+    padding: f.spacing('4') f.spacing('12');
+    background: f.color('primary');
+    color: f.color('text-white');
+    font-size: var(--nova-text-xs);
+    border-radius: f.radius('xs');
+    z-index: var(--nova-z-toast);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    @include m.transition(opacity, transform);
+  }
+
+  [dir='rtl'] &::after {
+    transform: translateX(50%) translateY(4px);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  [dir='rtl'] &:hover::after,
+  [dir='rtl'] &:focus-visible::after {
+    transform: translateX(50%) translateY(0);
+  }
+}

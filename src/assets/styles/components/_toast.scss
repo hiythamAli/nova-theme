@@ -1,0 +1,56 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA TOAST
+// Positioned inset-inline-end so it sits in the natural reading-exit corner
+// for both RTL and LTR without an override rule.
+// =============================================================================
+
+.nova-toast-region {
+  position: fixed;
+  inset-block-end: f.spacing('24');
+  inset-inline-end: f.spacing('24');
+  z-index: var(--nova-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+  width: min(360px, calc(100vw - #{f.spacing('32')}));
+}
+
+.nova-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: f.spacing('12');
+  padding: f.spacing('16');
+  background: f.color('primary');
+  color: f.color('text-white');
+  border-radius: f.radius('sm');
+  box-shadow: f.shadow('large');
+}
+
+.nova-toast--success {
+  background: f.color('success');
+}
+
+.nova-toast--danger {
+  background: f.color('danger');
+}
+
+.nova-toast--info {
+  background: f.color('info');
+}
+
+.nova-toast__message {
+  flex: 1;
+  font-size: var(--nova-text-sm);
+}
+
+.nova-toast__close {
+  flex-shrink: 0;
+  opacity: f.opacity('80');
+
+  &:hover {
+    opacity: 1;
+  }
+}

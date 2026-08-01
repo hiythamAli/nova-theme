@@ -1,0 +1,13 @@
+{#
+    NOVA Footer Menu — src/views/components/footer/menu.twig
+    Confirmed (docs.salla.dev/422602m0): receives an array of pages as
+    `items`, looped to display each (e.g. Privacy Policy link).
+#}
+
+<ul class="nova-footer__links">
+    {% for item in items %}
+        <li>
+            <a href="{{ item.url | default('#') }}">{{ item.title | default(item.name) }}</a>
+        </li>
+    {% endfor %}
+</ul>

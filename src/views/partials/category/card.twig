@@ -1,0 +1,27 @@
+{#
+    NOVA Category Card — src/views/partials/category/card.twig
+    No official Salla web component was confirmed for this (only
+    salla-product-card and salla-products-list were found in the Web
+    Components reference) — built as a plain NOVA presentational partial.
+    Field names (category.image/name/url/products_count) are inferred.
+#}
+
+<a href="{{ category.url | default('#') }}" class="nova-category-card">
+    <div class="nova-category-card__media">
+        <img
+            src="{{ category.image | default('') }}"
+            alt="{{ category.name | default('') }}"
+            loading="lazy"
+            width="300"
+            height="300"
+        >
+    </div>
+    <div class="nova-category-card__body">
+        <span class="nova-category-card__name">{{ category.name }}</span>
+        {% if category.products_count %}
+            <span class="nova-category-card__count">
+                {{ category.products_count }} {{ trans('common.products') }}
+            </span>
+        {% endif %}
+    </div>
+</a>

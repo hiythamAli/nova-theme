@@ -1,0 +1,38 @@
+{#
+    NOVA Product Gallery — src/views/partials/product/gallery.twig
+    Confirmed (docs.salla.dev/422561m0): `product.images` contains the
+    product's images, loopable. Each image's `.url` field assumed by
+    analogy with the confirmed `product.image.url` on the listing page —
+    not separately confirmed for the plural `images` array.
+#}
+
+<div class="nova-gallery" data-nova-gallery>
+    <div class="nova-gallery__main">
+        {% for image in product.images %}
+            <div class="nova-gallery__slide{{ loop.first ? ' is-active' : '' }}" data-nova-gallery-slide>
+                <img
+                    src="{{ image.url }}"
+                    alt="{{ product.name }}"
+                    loading="{{ loop.first ? 'eager' : 'lazy' }}"
+                    class="nova-gallery__image"
+                    data-nova-zoom
+                >
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if product.images | length > 1 %}
+        <div class="nova-gallery__thumbs">
+            {% for image in product.images %}
+                <button
+                    type="button"
+                    class="nova-gallery__thumb{{ loop.first ? ' is-active' : '' }}"
+                    data-nova-gallery-thumb="{{ loop.index0 }}"
+                    aria-label="{{ trans('product.view_image') }} {{ loop.index }}"
+                >
+                    <img src="{{ image.url }}" alt="" loading="lazy">
+                </button>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

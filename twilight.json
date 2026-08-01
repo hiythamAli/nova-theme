@@ -1,0 +1,201 @@
+{
+  "version": "1.0.0",
+  "theme_name": "NOVA",
+  "repo_url": "",
+  "support_url": "",
+
+  "settings": [
+    { "type": "string", "format": "color", "id": "general_primary_color", "label": "Primary Color", "value": "#111111" },
+    { "type": "string", "format": "color", "id": "general_secondary_color", "label": "Secondary Color", "value": "#F8F8F8" },
+    { "type": "string", "format": "color", "id": "general_accent_color", "label": "Accent Color", "value": "#C7A76C" },
+    { "type": "boolean", "format": "switch", "id": "general_enable_dark_mode", "label": "Enable Dark Mode (Future)", "selected": false },
+    { "type": "boolean", "format": "switch", "id": "general_page_loader", "label": "Page Loader", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "general_smooth_scroll", "label": "Smooth Scroll", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "header_sticky_header", "label": "Sticky Header", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "header_transparent_header", "label": "Transparent Header", "selected": false },
+    { "type": "boolean", "format": "switch", "id": "header_announcement_bar", "label": "Announcement Bar", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "footer_show_payment_icons", "label": "Show Payment Icons", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "footer_show_social_links", "label": "Show Social Links", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "hero_autoplay", "label": "Hero Autoplay", "selected": true },
+    { "type": "numeric", "id": "hero_autoplay_speed_ms", "label": "Hero Autoplay Speed (ms)", "value": 6000 },
+
+    {
+      "type": "list",
+      "id": "card_style",
+      "label": "Product Card Style",
+      "options": [
+        { "label": "Minimal", "value": "minimal" },
+        { "label": "Bordered", "value": "bordered" },
+        { "label": "Elevated", "value": "elevated" }
+      ],
+      "value": "minimal"
+    },
+    {
+      "type": "list",
+      "id": "card_image_ratio",
+      "label": "Product Card Image Ratio",
+      "options": [
+        { "label": "3:4", "value": "3-4" },
+        { "label": "4:5", "value": "4-5" },
+        { "label": "1:1", "value": "1-1" }
+      ],
+      "value": "3-4"
+    },
+    { "type": "boolean", "format": "switch", "id": "card_quick_view", "label": "Quick View", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "card_quick_add", "label": "Quick Add", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "animation_enable", "label": "Enable Animations", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "performance_lazy_loading", "label": "Lazy Load Images", "selected": true },
+
+    {
+      "type": "list",
+      "id": "typography_heading_font",
+      "label": "Headings Font",
+      "options": [
+        { "label": "IBM Plex Sans Arabic", "value": "primary" },
+        { "label": "Inter", "value": "secondary" }
+      ],
+      "value": "primary"
+    },
+    { "type": "boolean", "format": "switch", "id": "typography_uppercase_nav", "label": "Uppercase Navigation", "selected": false },
+
+    { "type": "boolean", "format": "switch", "id": "product_sticky_gallery", "label": "Sticky Gallery on Product Page", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "product_sticky_buy_bar", "label": "Sticky Buy Bar (Mobile)", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "product_show_trust_badges", "label": "Show Trust Badges", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "category_sidebar_filters", "label": "Sidebar Filters", "selected": true },
+    { "type": "numeric", "id": "category_products_per_row", "label": "Products Per Row (Desktop)", "value": 4 },
+    { "type": "boolean", "format": "switch", "id": "category_infinite_scroll", "label": "Infinite Scroll", "selected": false },
+
+    { "type": "boolean", "format": "switch", "id": "cart_show_free_shipping_bar", "label": "Free Shipping Progress Bar", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "cart_show_coupon_field", "label": "Show Coupon Field", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "popup_enable", "label": "Enable Popup System", "selected": false },
+    { "type": "numeric", "id": "popup_delay_seconds", "label": "Popup Delay (seconds)", "value": 5 },
+    { "type": "boolean", "format": "switch", "id": "popup_exit_intent", "label": "Trigger on Exit Intent", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "floating_whatsapp", "label": "Floating WhatsApp Button", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "floating_scroll_top", "label": "Scroll To Top Button", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "a11y_reduced_motion_respect", "label": "Respect Reduced Motion Preference", "selected": true },
+
+    { "type": "boolean", "format": "switch", "id": "seo_enable_structured_data", "label": "Enable Structured Data (Schema.org)", "selected": true },
+    { "type": "string", "id": "seo_meta_title_suffix", "label": "Meta Title Suffix", "value": "" },
+
+    { "type": "boolean", "format": "switch", "id": "blog_show_sidebar", "label": "Show Blog Sidebar", "selected": true },
+    { "type": "boolean", "format": "switch", "id": "blog_show_related_posts", "label": "Show Related Posts", "selected": true },
+
+    { "type": "string", "format": "textarea", "id": "advanced_custom_css", "label": "Custom CSS", "value": "" },
+    { "type": "string", "format": "textarea", "id": "advanced_custom_js", "label": "Custom JavaScript", "value": "" }
+  ],
+
+  "features": [
+    "component-photos-slider",
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-products-slider",
+    "component-testimonials",
+    "component-store-features",
+    "filters"
+  ],
+
+  "components": [
+    {
+      "name": "nova-hero-banner",
+      "title": "NOVA Hero Banner",
+      "icon": "sicon-image-carousel",
+      "path": "home.nova-hero-banner",
+      "fields": [
+        {
+          "id": "slides",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 6,
+          "fields": [
+            { "id": "image", "type": "image", "label": "Slide Image", "required": true },
+            { "id": "title", "type": "string", "label": "Title" },
+            { "id": "subtitle", "type": "string", "label": "Subtitle" },
+            { "id": "cta_label", "type": "string", "label": "Button Label" },
+            { "id": "cta_url", "type": "url", "label": "Button URL" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nova-brand-strip",
+      "title": "NOVA Brand Strip",
+      "icon": "sicon-tag",
+      "path": "home.nova-brand-strip",
+      "fields": [
+        {
+          "id": "brands",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 12,
+          "fields": [{ "id": "logo", "type": "image", "label": "Brand Logo", "required": true }]
+        }
+      ]
+    },
+    {
+      "name": "nova-categories-grid",
+      "title": "NOVA Featured Categories",
+      "icon": "sicon-grid",
+      "path": "home.nova-categories-grid",
+      "fields": [
+        { "id": "title", "type": "string", "label": "Section Title" },
+        {
+          "id": "categories",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 2,
+          "maxLength": 8,
+          "fields": [
+            { "id": "image", "type": "image", "label": "Category Image", "required": true },
+            { "id": "title", "type": "string", "label": "Category Title", "required": true },
+            { "id": "url", "type": "url", "label": "Link URL", "required": true }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nova-instagram-feed",
+      "title": "NOVA Instagram Feed",
+      "icon": "sicon-instagram",
+      "path": "home.nova-instagram-feed",
+      "fields": [
+        { "id": "title", "type": "string", "label": "Section Title" },
+        { "id": "profile_url", "type": "url", "label": "Instagram Profile URL", "required": true },
+        {
+          "id": "posts",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 4,
+          "maxLength": 8,
+          "fields": [
+            { "id": "image", "type": "image", "label": "Post Image", "required": true },
+            { "id": "url", "type": "url", "label": "Post URL", "required": true }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nova-newsletter",
+      "title": "NOVA Newsletter",
+      "icon": "sicon-mail",
+      "path": "home.nova-newsletter",
+      "fields": [
+        { "id": "title", "type": "string", "label": "Heading" },
+        { "id": "description", "type": "text", "label": "Description" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{#
+    NOVA Menu — src/views/components/header/menu.twig
+    Confirmed (docs.salla.dev/422601m0): `menus` contains each item's
+    details, looped to render. Menu Item handles child items and associated
+    products, adapting desktop/mobile — NOVA renders that as a mega panel
+    on desktop when a menu item has children.
+#}
+
+<ul class="nova-menu">
+    {% for menu in menus %}
+        <li
+            class="nova-menu__item{{ menu.children is defined and menu.children|length > 0 ? ' nova-menu__item--has-mega' : '' }}"
+        >
+            {% include 'components/header/menu-item.twig' with { item: menu } %}
+        </li>
+    {% endfor %}
+</ul>

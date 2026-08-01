@@ -1,0 +1,19 @@
+{#
+    NOVA Contacts — src/views/components/footer/contacts.twig
+    Confirmed (docs.salla.dev/422602m0): `contacts` is an array; each entry
+    is one contact detail (WhatsApp, phone, Telegram, email, etc.). Exact
+    per-item field names (icon/type/value/label) weren't confirmed —
+    `contact.label` and `contact.value` below are inferred; verify before
+    shipping.
+#}
+
+<ul class="nova-footer__contacts">
+    {% for contact in contacts %}
+        <li class="nova-footer__contact-item">
+            {% if contact.icon %}
+                <i class="{{ contact.icon }}" aria-hidden="true"></i>
+            {% endif %}
+            <a href="{{ contact.url | default('#') }}">{{ contact.label | default(contact.value) }}</a>
+        </li>
+    {% endfor %}
+</ul>

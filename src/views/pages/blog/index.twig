@@ -1,0 +1,36 @@
+{#
+    NOVA Blog Listing — src/views/pages/blog/index.twig
+    Confirmed exact path (theme-raed directory listing).
+    VERIFICATION NEEDED: `articles` collection and its field names
+    (`.title`/`.excerpt`/`.image`/`.url`/`.published_at`/`.author`)
+    inferred by convention, not confirmed in the docs consulted so far.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('blog.title') }}</h1>
+
+        <div class="nova-grid">
+            {% for article in articles %}
+                <a href="{{ article.url | default('#') }}" class="nova-col-6 nova-col-tablet-4 nova-card nova-card--elevated nova-lift">
+                    <div class="nova-card__media">
+                        <img src="{{ article.image | default('') }}" alt="{{ article.title | default('') }}" loading="lazy">
+                    </div>
+                    <div class="nova-card__body">
+                        <span class="nova-text-xs" style="color: var(--nova-color-text-light)">
+                            {{ article.published_at | default('') }}
+                        </span>
+                        <span class="nova-card__title nova-truncate-2">{{ article.title }}</span>
+                        <p class="nova-card__subtitle nova-truncate-2">{{ article.excerpt | default('') }}</p>
+                    </div>
+                </a>
+            {% else %}
+                <p class="nova-listing__empty">{{ trans('blog.no_articles') }}</p>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/product/pagination.twig' %}
+    </div>
+{% endblock %}

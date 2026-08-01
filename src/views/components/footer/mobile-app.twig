@@ -1,0 +1,18 @@
+{#
+    NOVA Mobile App — src/views/components/footer/mobile-app.twig
+    Confirmed (docs.salla.dev/422602m0): receives an array of `apps`,
+    looped to display each (e.g. App Store, Google Play links).
+#}
+
+<ul class="nova-footer__apps">
+    {% for app in apps %}
+        <li>
+            <a href="{{ app.url | default('#') }}" class="nova-footer__app-link">
+                {% if app.icon %}
+                    <i class="{{ app.icon }}" aria-hidden="true"></i>
+                {% endif %}
+                <span>{{ app.label | default(app.name) }}</span>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

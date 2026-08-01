@@ -1,0 +1,25 @@
+@use '../abstracts/tokens' as t;
+
+// =============================================================================
+// NOVA — LIGHT THEME (default)
+// Colors only. Isolated from base/_root.scss on purpose: per 06-Theme-
+// Settings.md, Dark Mode is a "Future" toggle that must redefine exactly
+// these variable names inside a `.nova-theme--dark` scope, nothing else.
+//
+// Salla Theme Settings can override primary/secondary/accent at runtime —
+// see the <style> block in src/views/layouts/master.twig, which loads after
+// this stylesheet and wins the cascade for those three variables only.
+// =============================================================================
+
+:root {
+  @each $key, $value in t.$nova-colors {
+    --nova-color-#{$key}: #{$value};
+  }
+}
+
+// Reserved scope for Phase 2+ future work (06-Theme-Settings.md → Future
+// Settings → Dark Mode). Left empty and documented rather than guessed at,
+// since Salla has no published dark-mode theme-setting convention yet.
+// .nova-theme--dark {
+//   --nova-color-primary: ...;
+// }

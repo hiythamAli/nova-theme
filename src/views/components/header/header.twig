@@ -1,0 +1,73 @@
+{#
+    NOVA Header — src/views/components/header/header.twig
+    Per docs.salla.dev/422601m0: the header's main component embeds
+    `breadcrumbs` and the main `menu`. `advertisement` is a sibling header
+    component (used here as NOVA's announcement bar).
+
+    VERIFICATION NEEDED: `store.name`, `store.logo`, `cart.count` are
+    best-effort names inferred from context — the Global Variables
+    reference table renders client-side and wasn't retrievable. `link()`
+    is now confirmed usable as `link('/')` (seen verbatim in theme-raed's
+    official cart.twig). `<salla-search>` (confirmed docs.salla.dev/422730m0)
+    replaces an earlier custom search-toggle button — it's a self-contained
+    Modal+Button+slots component, no NOVA-side wiring needed.
+#}
+
+{% hook 'component:header.start' %}
+
+{% if theme.settings.get('header_announcement_bar') %}
+    <div class="nova-announcement">
+        {% include 'components/header/advertisement.twig' %}
+    </div>
+{% endif %}
+
+<div class="nova-header__bar">
+    <div class="nova-container nova-header__row">
+
+        <button
+            type="button"
+            class="nova-header__menu-toggle"
+            aria-expanded="false"
+            aria-controls="nova-mobile-menu"
+            aria-label="{{ trans('common.open_menu') }}"
+        >
+            <i class="sicon-menu" aria-hidden="true"></i>
+        </button>
+
+        <a href="{{ link('/') }}" class="nova-header__logo" aria-label="{{ store.name }}">
+            {% if store.logo %}
+                <img src="{{ store.logo }}" alt="{{ store.name }}" width="140" height="40">
+            {% else %}
+                <span class="nova-header__logo-text">{{ store.name }}</span>
+            {% endif %}
+        </a>
+
+        <nav class="nova-header__nav" aria-label="{{ trans('nav.categories') }}">
+            {% include 'components/header/menu.twig' %}
+        </nav>
+
+        <div class="nova-header__actions">
+            <salla-search></salla-search>
+            <a href="{{ link('customer.wishlist') }}" class="nova-icon-btn" aria-label="{{ trans('common.wishlist') }}">
+                <i class="sicon-heart" aria-hidden="true"></i>
+            </a>
+            <a href="{{ link('cart') }}" class="nova-icon-btn nova-icon-btn--cart" aria-label="{{ trans('cart.title') }}">
+                <i class="sicon-cart" aria-hidden="true"></i>
+                <span class="nova-icon-btn__count" data-cart-count>{{ cart.count | default(0) }}</span>
+            </a>
+            <a href="{{ link('customer.profile') }}" class="nova-icon-btn" aria-label="{{ trans('common.account') }}">
+                <i class="sicon-account" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+
+    {% if breadcrumbs is defined and breadcrumbs|length > 0 %}
+        <div class="nova-container">
+            {% include 'components/header/breadcrumbs.twig' %}
+            {% include 'partials/structured-data/breadcrumbs.twig' %}
+        </div>
+    {% endif %}
+</div>
+
+{% hook 'component:header.end' %}

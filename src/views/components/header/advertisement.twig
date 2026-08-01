@@ -1,0 +1,17 @@
+{#
+    NOVA Advertisement — src/views/components/header/advertisement.twig
+    Confirmed fields (docs.salla.dev/422601m0): advertisement.icon,
+    advertisement.url, advertisement.description.
+#}
+
+{% if advertisement is defined and advertisement %}
+    <a
+        href="{{ advertisement.url | default('#') }}"
+        class="nova-announcement__bar"
+    >
+        {% if advertisement.icon %}
+            <i class="{{ advertisement.icon }}" aria-hidden="true"></i>
+        {% endif %}
+        <span>{{ advertisement.description }}</span>
+    </a>
+{% endif %}

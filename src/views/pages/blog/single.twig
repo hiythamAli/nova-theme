@@ -1,0 +1,27 @@
+{#
+    NOVA Single Blog Article — src/views/pages/blog/single.twig
+    Confirmed exact path (theme-raed directory listing).
+    VERIFICATION NEEDED: `article` object fields inferred by convention.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <article class="nova-container nova-single-page">
+        {% if article.image %}
+            <img src="{{ article.image }}" alt="{{ article.title }}" class="nova-article__cover" loading="eager">
+        {% endif %}
+
+        <h1 class="nova-single-page__title">{{ article.title }}</h1>
+
+        <div class="nova-article__meta">
+            {% if article.author %}<span>{{ article.author }}</span>{% endif %}
+            {% if article.published_at %}<span>{{ article.published_at }}</span>{% endif %}
+            {% if article.reading_time %}<span>{{ article.reading_time }}</span>{% endif %}
+        </div>
+
+        <div class="nova-single-page__content">
+            {{ article.content | raw }}
+        </div>
+    </article>
+{% endblock %}

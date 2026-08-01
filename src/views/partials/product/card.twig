@@ -1,0 +1,113 @@
+{#
+    NOVA Product Card (default) — src/views/partials/product/card.twig
+    Path matches Theme Raed's confirmed reference structure
+    (partials/product/card.twig, card-mini.twig, card-full-image.twig).
+
+    Cart/stock logic is delegated to <salla-add-product-button>, an official
+    Twilight Web Component (docs.salla.dev/422692m0) that "consists of
+    Product Availability component and Button component" — it handles sold
+    out / notify-me / add-to-cart states internally via the product-status
+    and product-type attributes, so NOVA doesn't reimplement that state
+    machine or guess at cart API method signatures.
+
+    Confirmed fields (docs.salla.dev/422559m0, Products Listing page):
+    product.name, product.image.url, product.url, product.price. Corrected
+    from an earlier draft that used product.image directly (a plain
+    string) — the confirmed field is product.image, an object with .url.
+
+    VERIFICATION NEEDED: product.sale_price, product.regular_price,
+    product.on_sale, product.discount_percentage, product.rating,
+    product.rating_count, product.brand_name, product.in_wishlist,
+    product.status, product.type were not explicitly confirmed for the
+    listing context (product.rating IS confirmed on the Single Product
+    page per docs.salla.dev/422561m0, reasonably assumed to carry over).
+    Verify against a live store before shipping.
+#}
+
+<article class="nova-card nova-card--{{ theme.settings.get('card_style') | default('minimal') }} nova-lift nova-product-card" data-image-ratio="{{ theme.settings.get('card_image_ratio') | default('3-4') }}">
+    <div class="nova-card__media">
+        {% if product.on_sale %}
+            <span class="nova-badge nova-badge--sale nova-product-card__badge">
+                {{ trans('product.sale') }}
+            </span>
+        {% elseif product.is_new %}
+            <span class="nova-badge nova-badge--new nova-product-card__badge">
+                {{ trans('product.new') }}
+            </span>
+        {% endif %}
+
+        <button
+            type="button"
+            class="nova-icon-btn nova-product-card__wishlist"
+            data-nova-wishlist-toggle
+            data-product-id="{{ product.id }}"
+            aria-label="{{ trans('common.wishlist') }}"
+            aria-pressed="{{ product.in_wishlist ? 'true' : 'false' }}"
+        >
+            <i class="sicon-heart" aria-hidden="true"></i>
+        </button>
+
+        <a href="{{ product.url | default('#') }}">
+            <img
+                src="{{ product.image.url | default('') }}"
+                alt="{{ product.name | default('') }}"
+                loading="lazy"
+                width="400"
+                height="533"
+            >
+        </a>
+
+        <div class="nova-product-card__quick-actions">
+            {% if theme.settings.get('card_quick_view') %}
+                <button
+                    type="button"
+                    class="nova-btn nova-btn--secondary nova-btn--sm"
+                    data-nova-modal-open="quick-view-{{ product.id }}"
+                >
+                    {{ trans('product.quick_view') }}
+                </button>
+            {% endif %}
+            <button
+                type="button"
+                class="nova-icon-btn"
+                data-nova-compare-toggle
+                data-product-id="{{ product.id }}"
+                aria-label="{{ trans('product.compare') }}"
+            >
+                <i class="sicon-refresh-ccw" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="nova-card__body">
+        {% if product.brand_name %}
+            <span class="nova-text-xs nova-font-secondary" style="color: var(--nova-color-text-light)">
+                {{ product.brand_name }}
+            </span>
+        {% endif %}
+
+        <a href="{{ product.url | default('#') }}" class="nova-card__title nova-truncate-2">
+            {{ product.name }}
+        </a>
+
+        {% if product.rating %}
+            <div class="nova-rating">
+                <span class="nova-rating__stars">
+                    <span class="nova-rating__stars-fill" style="width: {{ (product.rating / 5 * 100) }}%"></span>
+                </span>
+                <span class="nova-rating__count">({{ product.rating_count | default(0) }})</span>
+            </div>
+        {% endif %}
+
+        {% include 'partials/product/price.twig' %}
+
+        {% if theme.settings.get('card_quick_add') %}
+            <salla-add-product-button
+                product-id="{{ product.id }}"
+                product-status="{{ product.status | default('sale') }}"
+                product-type="{{ product.type | default('product') }}"
+                class="nova-product-card__cta"
+            ></salla-add-product-button>
+        {% endif %}
+    </div>
+</article>

@@ -1,0 +1,197 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA PRODUCT CARD (default)
+// =============================================================================
+
+.nova-product-card__badge {
+  position: absolute;
+  inset-block-start: f.spacing('12');
+  inset-inline-start: f.spacing('12');
+  z-index: 1;
+}
+
+.nova-product-card__wishlist {
+  position: absolute;
+  inset-block-start: f.spacing('12');
+  inset-inline-end: f.spacing('12');
+  z-index: 1;
+  background: f.color('surface');
+
+  &[aria-pressed='true'] {
+    color: f.color('danger');
+  }
+}
+
+.nova-product-card__quick-actions {
+  position: absolute;
+  inset-inline: f.spacing('12');
+  inset-block-end: f.spacing('12');
+  display: flex;
+  align-items: center;
+  gap: f.spacing('8');
+  opacity: 0;
+  transform: translateY(8px);
+
+  @include m.transition(opacity, transform);
+}
+
+.nova-product-card:hover .nova-product-card__quick-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nova-product-card__quick-actions .nova-icon-btn {
+  background: f.color('surface');
+  box-shadow: f.shadow('small');
+}
+
+.nova-product-card__cta {
+  margin-block-start: f.spacing('8');
+  display: block;
+}
+
+// Responds to the theme.settings 'card_image_ratio' setting, wired via
+// the data-image-ratio attribute in partials/product/card.twig.
+.nova-product-card[data-image-ratio='4-5'] .nova-card__media {
+  aspect-ratio: f.card-ratio('tall');
+}
+
+.nova-product-card[data-image-ratio='1-1'] .nova-card__media {
+  aspect-ratio: f.card-ratio('square');
+}
+
+// -----------------------------------------------------------------------------
+// Price
+// -----------------------------------------------------------------------------
+.nova-price {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('8');
+  font-weight: var(--nova-weight-semibold);
+}
+
+.nova-price__sale {
+  color: f.color('danger');
+}
+
+.nova-price__regular {
+  color: f.color('text-light');
+  text-decoration: line-through;
+  font-weight: var(--nova-weight-regular);
+  font-size: var(--nova-text-sm);
+}
+
+.nova-price__regular--only {
+  color: f.color('text-primary');
+  text-decoration: none;
+  font-weight: var(--nova-weight-semibold);
+  font-size: var(--nova-text-base);
+}
+
+// -----------------------------------------------------------------------------
+// Mini card
+// -----------------------------------------------------------------------------
+.nova-product-card-mini {
+  display: flex;
+  gap: f.spacing('12');
+  align-items: center;
+}
+
+.nova-product-card-mini__media {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: f.radius('sm');
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nova-product-card-mini__body {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('4');
+  font-size: var(--nova-text-sm);
+  min-width: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Full-image card
+// -----------------------------------------------------------------------------
+.nova-product-card-full__media {
+  position: relative;
+  display: block;
+  aspect-ratio: f.card-ratio('tall');
+  border-radius: f.radius('md');
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nova-product-card-full__overlay {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: f.spacing('24');
+  background: linear-gradient(transparent, rgba(0, 0, 0, f.opacity('60')));
+  color: f.color('text-white');
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('4');
+}
+
+.nova-product-card-full__name {
+  font-size: var(--nova-text-lg);
+  font-weight: var(--nova-weight-semibold);
+}
+
+// -----------------------------------------------------------------------------
+// Color Swatches
+// -----------------------------------------------------------------------------
+.nova-swatches {
+  display: flex;
+  gap: f.spacing('8');
+  flex-wrap: wrap;
+}
+
+.nova-swatch {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.nova-swatch__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.nova-swatch__color {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: f.radius('round');
+  border: f.border-width('2') solid f.color('surface');
+  box-shadow: 0 0 0 1px f.color('border');
+
+  @include m.transition(box-shadow);
+}
+
+.nova-swatch__input:checked + .nova-swatch__color {
+  box-shadow: 0 0 0 2px f.color('accent-text');
+}
+
+.nova-swatch__input:focus-visible + .nova-swatch__color {
+  outline: f.border-width('2') solid f.color('accent-text');
+  outline-offset: 2px;
+}

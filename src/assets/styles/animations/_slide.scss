@@ -1,0 +1,44 @@
+@use '../abstracts/mixins' as m;
+
+// Slide — drawers (cart, wishlist, mobile nav), mega menu panels.
+// Uses inset-inline so the direction flips correctly for RTL automatically.
+@keyframes nova-slide-in-inline {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+[dir='rtl'] .nova-animate-slide {
+  animation-name: nova-slide-in-inline;
+  animation-direction: reverse;
+}
+
+.nova-animate-slide {
+  animation: nova-slide-in-inline var(--nova-duration-normal) ease;
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}
+
+@keyframes nova-slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.nova-animate-slide-up {
+  animation: nova-slide-up var(--nova-duration-slow) ease;
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}

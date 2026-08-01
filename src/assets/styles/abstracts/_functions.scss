@@ -1,0 +1,159 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use 'tokens' as t;
+
+// =============================================================================
+// NOVA TOKEN ACCESSORS
+// Every other file reads tokens through these functions, never through
+// map-get(t.$nova-*, ...) directly and never through a raw literal.
+// Each fails loudly (@error) on an unknown key instead of silently
+// returning null, so a typo is caught at build time, not in the browser.
+// =============================================================================
+
+@function color($key) {
+  @if not map.has-key(t.$nova-colors, $key) {
+    @error "NOVA: unknown color token `#{$key}`.";
+  }
+  @return map.get(t.$nova-colors, $key);
+}
+
+@function font-size($key) {
+  @if not map.has-key(t.$nova-font-sizes, $key) {
+    @error "NOVA: unknown font-size token `#{$key}`.";
+  }
+  @return map.get(t.$nova-font-sizes, $key);
+}
+
+@function font-weight($key) {
+  @if not map.has-key(t.$nova-font-weights, $key) {
+    @error "NOVA: unknown font-weight token `#{$key}`.";
+  }
+  @return map.get(t.$nova-font-weights, $key);
+}
+
+@function line-height($key) {
+  @if not map.has-key(t.$nova-line-heights, $key) {
+    @error "NOVA: unknown line-height token `#{$key}`.";
+  }
+  @return map.get(t.$nova-line-heights, $key);
+}
+
+@function letter-spacing($key) {
+  @if not map.has-key(t.$nova-letter-spacing, $key) {
+    @error "NOVA: unknown letter-spacing token `#{$key}`.";
+  }
+  @return map.get(t.$nova-letter-spacing, $key);
+}
+
+@function spacing($key) {
+  @if not map.has-key(t.$nova-spacing, $key) {
+    @error "NOVA: unknown spacing token `#{$key}`.";
+  }
+  @return map.get(t.$nova-spacing, $key);
+}
+
+@function radius($key) {
+  @if not map.has-key(t.$nova-radius, $key) {
+    @error "NOVA: unknown radius token `#{$key}`.";
+  }
+  @return map.get(t.$nova-radius, $key);
+}
+
+@function border-width($key) {
+  @if not map.has-key(t.$nova-border-width, $key) {
+    @error "NOVA: unknown border-width token `#{$key}`.";
+  }
+  @return map.get(t.$nova-border-width, $key);
+}
+
+@function shadow($key) {
+  @if not map.has-key(t.$nova-shadows, $key) {
+    @error "NOVA: unknown shadow token `#{$key}`.";
+  }
+  @return map.get(t.$nova-shadows, $key);
+}
+
+@function opacity($key) {
+  @if not map.has-key(t.$nova-opacity, $key) {
+    @error "NOVA: unknown opacity token `#{$key}`.";
+  }
+  @return map.get(t.$nova-opacity, $key);
+}
+
+@function duration($key) {
+  @if not map.has-key(t.$nova-transitions, $key) {
+    @error "NOVA: unknown transition token `#{$key}`.";
+  }
+  @return map.get(t.$nova-transitions, $key);
+}
+
+@function z($key) {
+  @if not map.has-key(t.$nova-z-index, $key) {
+    @error "NOVA: unknown z-index token `#{$key}`.";
+  }
+  @return map.get(t.$nova-z-index, $key);
+}
+
+@function breakpoint($key) {
+  @if not map.has-key(t.$nova-breakpoints, $key) {
+    @error "NOVA: unknown breakpoint token `#{$key}`.";
+  }
+  @return map.get(t.$nova-breakpoints, $key);
+}
+
+@function container($key) {
+  @if not map.has-key(t.$nova-containers, $key) {
+    @error "NOVA: unknown container token `#{$key}`.";
+  }
+  @return map.get(t.$nova-containers, $key);
+}
+
+@function button-height($key) {
+  @if not map.has-key(t.$nova-button-heights, $key) {
+    @error "NOVA: unknown button-height token `#{$key}`.";
+  }
+  @return map.get(t.$nova-button-heights, $key);
+}
+
+@function input-height($key) {
+  @if not map.has-key(t.$nova-input-heights, $key) {
+    @error "NOVA: unknown input-height token `#{$key}`.";
+  }
+  @return map.get(t.$nova-input-heights, $key);
+}
+
+@function icon-size($key) {
+  @if not map.has-key(t.$nova-icon-sizes, $key) {
+    @error "NOVA: unknown icon-size token `#{$key}`.";
+  }
+  @return map.get(t.$nova-icon-sizes, $key);
+}
+
+@function hero-height($key) {
+  @if not map.has-key(t.$nova-hero-height, $key) {
+    @error "NOVA: unknown hero-height token `#{$key}`.";
+  }
+  @return map.get(t.$nova-hero-height, $key);
+}
+
+@function section-spacing($key) {
+  @if not map.has-key(t.$nova-section-spacing, $key) {
+    @error "NOVA: unknown section-spacing token `#{$key}`.";
+  }
+  @return map.get(t.$nova-section-spacing, $key);
+}
+
+@function card-ratio($key) {
+  @if not map.has-key(t.$nova-product-card-ratios, $key) {
+    @error "NOVA: unknown product-card-ratio token `#{$key}`.";
+  }
+  // aspect-ratio expects an unquoted <ratio>; the token is stored as a string.
+  @return string.unquote(map.get(t.$nova-product-card-ratios, $key));
+}
+
+// Converts a px value to rem assuming a 16px root font-size.
+// Used sparingly — most sizing should come from the token maps above.
+@function rem($px) {
+  @return math.div($px, 16px) * 1rem;
+}

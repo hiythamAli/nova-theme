@@ -1,0 +1,40 @@
+{#
+    NOVA SEO Meta — src/views/partials/seo.twig
+    Open Graph, Twitter Card, canonical, and robots tags. Separate from
+    the confirmed {% hook 'head' %} mechanism (docs.salla.dev/421944m0
+    confirms hooks handle "SEO-related meta data" injection — that's for
+    platform/app-injected content, e.g. Search Console verification,
+    tracking pixels; it doesn't replace a theme authoring its own
+    per-page <title>/OG/Twitter tags from page data, which is the
+    universal pattern across every platform's theme system).
+
+    VERIFICATION NEEDED: same page_title/page_description caveat as
+    master.twig. `canonical_url` is a best-effort guess at a global
+    variable name (by analogy with `page_title`) — not confirmed.
+    `og:image` falls back through product.images[0].url (confirmed field,
+    Phase 8) → store.logo (flagged, Phase 3) → nothing.
+#}
+
+<meta property="og:site_name" content="{{ store.name }}">
+<meta property="og:type" content="{{ product is defined and product ? 'product' : 'website' }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_description }}">
+<meta property="og:url" content="{{ canonical_url | default('') }}">
+{% if product is defined and product and product.images is defined and product.images | length > 0 %}
+    <meta property="og:image" content="{{ product.images[0].url }}">
+{% elseif store.logo %}
+    <meta property="og:image" content="{{ store.logo }}">
+{% endif %}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ page_description }}">
+{% if product is defined and product and product.images is defined and product.images | length > 0 %}
+    <meta name="twitter:image" content="{{ product.images[0].url }}">
+{% endif %}
+
+{% if canonical_url is defined and canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+{% endif %}
+
+<meta name="robots" content="{{ robots_directive | default('index, follow') }}">

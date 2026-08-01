@@ -1,0 +1,198 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA HEADER
+// =============================================================================
+
+.nova-skip-link {
+  position: absolute;
+  inset-block-start: -100%;
+  inset-inline-start: f.spacing('16');
+  z-index: var(--nova-z-toast);
+  padding: f.spacing('12') f.spacing('20');
+  background: f.color('surface');
+  color: f.color('text-primary');
+  border-radius: f.radius('sm');
+  box-shadow: f.shadow('medium');
+
+  &:focus {
+    inset-block-start: f.spacing('16');
+  }
+}
+
+.nova-announcement__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: f.spacing('8');
+  padding-block: f.spacing('8');
+  background: f.color('primary');
+  color: f.color('text-white');
+  font-size: var(--nova-text-sm);
+  text-align: center;
+}
+
+.nova-header {
+  position: relative;
+  background: f.color('surface');
+  border-block-end: f.border-width('1') solid f.color('border');
+
+  &[data-sticky='true'] {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--nova-z-header);
+
+    @include m.reduced-motion {
+      transition: none;
+    }
+  }
+}
+
+// Wired to theme.settings 'header_transparent_header' — sits over the
+// hero with no background until scrolled, for landing-style homepages.
+.nova-header--transparent {
+  position: absolute;
+  inset-inline: 0;
+  background: transparent;
+  border-block-end-color: transparent;
+
+  &[data-sticky='true'].nova-header--scrolled {
+    position: sticky;
+    background: f.color('surface');
+    border-block-end-color: f.color('border');
+  }
+}
+
+.nova-header__bar {
+  padding-block: f.spacing('16');
+}
+
+.nova-header__row {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('24');
+}
+
+.nova-header__menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('2xl');
+  height: f.icon-size('2xl');
+
+  @include m.respond-to('laptop') {
+    display: none;
+  }
+}
+
+.nova-header__logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nova-header__logo-text {
+  font-size: var(--nova-text-xl);
+  font-weight: var(--nova-weight-bold);
+  color: f.color('primary');
+}
+
+.nova-header__nav {
+  display: none;
+  flex: 1;
+
+  @include m.respond-to('laptop') {
+    display: block;
+  }
+}
+
+.nova-menu {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('32');
+  list-style: none;
+}
+
+.nova-menu__item {
+  position: relative;
+
+  &--has-mega:hover .nova-mega-menu,
+  &--has-mega:focus-within .nova-mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.nova-menu__link {
+  display: inline-flex;
+  align-items: center;
+  gap: f.spacing('4');
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-medium);
+  color: f.color('text-primary');
+
+  @include m.transition(color);
+
+  &:hover {
+    color: f.color('accent-text');
+  }
+}
+
+.nova-menu__caret {
+  font-size: f.icon-size('xs');
+}
+
+// Wired to theme.settings 'typography_uppercase_nav'
+.nova-uppercase-nav .nova-menu__link {
+  text-transform: uppercase;
+  letter-spacing: f.letter-spacing('wide');
+
+  [dir='rtl'] & {
+    letter-spacing: normal; // Arabic exception — see base/_typography.scss
+  }
+}
+
+.nova-header__actions {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('12');
+  margin-inline-start: auto;
+}
+
+.nova-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('2xl');
+  height: f.icon-size('2xl');
+  border-radius: f.radius('round');
+
+  @include m.transition(background-color);
+  @include m.focus-ring;
+
+  &:hover {
+    background: f.color('secondary');
+  }
+}
+
+.nova-icon-btn--cart .nova-icon-btn__count {
+  position: absolute;
+  inset-block-start: -2px;
+  inset-inline-end: -2px;
+  min-width: f.spacing('20');
+  height: f.spacing('20');
+  padding-inline: f.spacing('4');
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--nova-text-xs);
+  font-weight: var(--nova-weight-semibold);
+  color: f.color(
+    'text-primary'
+  ); // dark text: 8.25:1 vs white text's failing 2.29:1 — see Phase 14 accessibility audit
+  background: f.color('accent');
+  border-radius: f.radius('round');
+}

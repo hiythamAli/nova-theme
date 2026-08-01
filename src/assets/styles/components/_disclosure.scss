@@ -1,0 +1,132 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA DISCLOSURE COMPONENTS — Dropdown, Accordion, Tabs
+// All three share one interaction shape: a trigger with aria-expanded,
+// toggled by src/scripts/components/Disclosure. CSS reacts to the
+// [aria-expanded] attribute rather than a JS-added class, so state is never
+// duplicated between the DOM and a stylesheet hook.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Dropdown
+// -----------------------------------------------------------------------------
+.nova-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nova-dropdown__panel {
+  position: absolute;
+  inset-block-start: calc(100% + #{f.spacing('8')});
+  inset-inline-start: 0;
+  z-index: var(--nova-z-dropdown);
+  min-width: 200px;
+  padding: f.spacing('8');
+  background: f.color('surface');
+  border-radius: f.radius('sm');
+  box-shadow: f.shadow('medium');
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+
+  @include m.transition(opacity, transform);
+}
+
+.nova-dropdown__trigger[aria-expanded='true'] + .nova-dropdown__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nova-dropdown__item {
+  display: block;
+  width: 100%;
+  padding: f.spacing('8') f.spacing('12');
+  border-radius: f.radius('xs');
+  text-align: start;
+  font-size: var(--nova-text-sm);
+  color: f.color('text-primary');
+
+  &:hover {
+    background: f.color('secondary');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Accordion
+// -----------------------------------------------------------------------------
+.nova-accordion__item {
+  border-block-end: f.border-width('1') solid f.color('border');
+}
+
+.nova-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-block: f.spacing('16');
+  font-weight: var(--nova-weight-medium);
+  text-align: start;
+}
+
+.nova-accordion__icon {
+  flex-shrink: 0;
+  @include m.transition(transform);
+}
+
+.nova-accordion__trigger[aria-expanded='true'] .nova-accordion__icon {
+  transform: rotate(180deg);
+}
+
+.nova-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+
+  @include m.transition(grid-template-rows);
+}
+
+.nova-accordion__trigger[aria-expanded='true'] + .nova-accordion__panel {
+  grid-template-rows: 1fr;
+}
+
+.nova-accordion__panel-inner {
+  overflow: hidden;
+  padding-block-end: f.spacing('16');
+  color: f.color('text-secondary');
+  font-size: var(--nova-text-sm);
+}
+
+// -----------------------------------------------------------------------------
+// Tabs
+// -----------------------------------------------------------------------------
+.nova-tabs__list {
+  display: flex;
+  gap: f.spacing('24');
+  border-block-end: f.border-width('1') solid f.color('border');
+}
+
+.nova-tabs__trigger {
+  padding-block: f.spacing('12');
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-medium);
+  color: f.color('text-secondary');
+  border-block-end: f.border-width('2') solid transparent;
+
+  @include m.transition(color, border-color);
+
+  &[aria-selected='true'] {
+    color: f.color('primary');
+    border-block-end-color: f.color('accent-text');
+  }
+}
+
+.nova-tabs__panel {
+  padding-block-start: f.spacing('24');
+
+  &[hidden] {
+    display: none;
+  }
+}

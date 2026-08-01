@@ -1,0 +1,43 @@
+{#
+    NOVA Product Schema — src/views/partials/structured-data/product.twig
+    Included only on src/views/pages/product/single.twig. Uses confirmed
+    fields from Phase 8 research (docs.salla.dev/422561m0): product.name,
+    product.description, product.images, product.rating. `product.price`/
+    `.currency`/`.availability` are inferred by convention (not
+    separately confirmed) — flagged same as elsewhere this project.
+#}
+
+{% if theme.settings.get('seo_enable_structured_data') %}
+    {% set product_images = [] %}
+    {% for image in product.images %}
+        {% set product_images = product_images | merge([image.url]) %}
+    {% endfor %}
+
+    <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            'name': product.name,
+            'description': product.description | striptags,
+            'image': product_images,
+            'brand': product.brand ? {
+                '@type': 'Brand',
+                'name': product.brand.name | default(product.brand),
+            } : null,
+            'aggregateRating': product.rating ? {
+                '@type': 'AggregateRating',
+                'ratingValue': product.rating,
+                'reviewCount': product.rating_count | default(1),
+            } : null,
+            'offers': {
+                '@type': 'Offer',
+                'price': product.price,
+                'priceCurrency': store.currency | default('SAR'),
+                'availability': product.is_available | default(true)
+                    ? 'https://schema.org/InStock'
+                    : 'https://schema.org/OutOfStock',
+                'url': canonical_url | default(''),
+            }
+        } | json_encode | raw }}
+    </script>
+{% endif %}

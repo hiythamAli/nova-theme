@@ -1,0 +1,135 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA OVERLAY — Modal & Drawer
+// Both are shown/hidden via the native <dialog>-like [open] boolean
+// attribute pattern (toggled by src/scripts/components/Modal|Drawer),
+// so no visibility state lives only in JS.
+// =============================================================================
+
+.nova-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--nova-z-modal);
+  background: rgba(0, 0, 0, f.opacity('40'));
+  opacity: 0;
+  visibility: hidden;
+
+  @include m.transition(opacity);
+
+  &[data-open='true'] {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Modal — centered panel
+// -----------------------------------------------------------------------------
+.nova-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--nova-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: f.spacing('16');
+  pointer-events: none;
+}
+
+.nova-modal__panel {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - #{f.spacing('32')});
+  overflow-y: auto;
+  background: f.color('surface');
+  border-radius: f.radius('lg');
+  box-shadow: f.shadow('xlarge');
+  padding: f.spacing('24');
+
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+
+  @include m.transition(opacity, transform);
+
+  [data-open='true'] & {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+}
+
+.nova-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: f.spacing('16');
+}
+
+.nova-modal__title {
+  font-size: var(--nova-text-lg);
+  font-weight: var(--nova-weight-semibold);
+}
+
+.nova-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('2xl');
+  height: f.icon-size('2xl');
+  border-radius: f.radius('round');
+
+  &:hover {
+    background: f.color('secondary');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Drawer — slides in from the inline-end edge (right in LTR, left in RTL —
+// handled automatically by inset-inline-end, no override rule needed)
+// -----------------------------------------------------------------------------
+.nova-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: var(--nova-z-drawer);
+  width: 100%;
+  max-width: 420px;
+  background: f.color('surface');
+  box-shadow: f.shadow('xlarge');
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(100%);
+
+  [dir='rtl'] & {
+    transform: translateX(-100%);
+  }
+
+  @include m.transition(transform);
+
+  &[data-open='true'] {
+    transform: translateX(0);
+  }
+}
+
+.nova-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: f.spacing('20') f.spacing('24');
+  border-block-end: f.border-width('1') solid f.color('border');
+}
+
+.nova-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: f.spacing('24');
+}
+
+.nova-drawer__footer {
+  padding: f.spacing('20') f.spacing('24');
+  border-block-start: f.border-width('1') solid f.color('border');
+}

@@ -1,0 +1,83 @@
+@use '../abstracts/functions' as f;
+
+// =============================================================================
+// NOVA AVATAR
+// =============================================================================
+
+.nova-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('3xl');
+  height: f.icon-size('3xl');
+  border-radius: f.radius('round');
+  background: f.color('secondary');
+  color: f.color('text-secondary');
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-semibold);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nova-avatar--sm {
+  width: f.icon-size('2xl');
+  height: f.icon-size('2xl');
+  font-size: var(--nova-text-xs);
+}
+
+.nova-avatar--lg {
+  width: 64px;
+  height: 64px;
+  font-size: var(--nova-text-lg);
+}
+
+// =============================================================================
+// NOVA RATING
+// Stars rendered as a CSS gradient clip over a filled-percentage width —
+// avoids five separate icon elements per rating and supports partial stars
+// (e.g. 3.5) natively.
+// =============================================================================
+
+.nova-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: f.spacing('8');
+}
+
+.nova-rating__stars {
+  position: relative;
+  display: inline-flex;
+  font-size: f.icon-size('sm');
+  line-height: 1;
+  color: f.color('border');
+
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 2px;
+  }
+}
+
+.nova-rating__stars-fill {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  overflow: hidden;
+  color: f.color('accent-text');
+  white-space: nowrap;
+
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 2px;
+  }
+}
+
+.nova-rating__count {
+  font-size: var(--nova-text-xs);
+  color: f.color('text-secondary');
+}

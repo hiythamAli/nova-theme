@@ -1,0 +1,48 @@
+@use '../abstracts/functions' as f;
+
+// =============================================================================
+// NOVA SINGLE PAGE (generic content — About, Policies, etc.)
+// =============================================================================
+
+.nova-single-page {
+  max-width: 760px;
+  margin-inline: auto;
+  padding-block: f.spacing('48');
+}
+
+.nova-single-page__title {
+  margin-block-end: f.spacing('24');
+  font-size: var(--nova-text-3xl);
+}
+
+.nova-single-page__content {
+  color: f.color('text-secondary');
+  line-height: 1.8;
+
+  h2,
+  h3 {
+    margin-block: f.spacing('24') f.spacing('12');
+    color: f.color('text-primary');
+  }
+
+  p {
+    margin-block-end: f.spacing('16');
+  }
+
+  a {
+    color: f.color('accent-text');
+    text-decoration: underline;
+  }
+
+  ul,
+  ol {
+    margin-block-end: f.spacing('16');
+    padding-inline-start: f.spacing('24');
+    list-style: revert;
+  }
+
+  img {
+    border-radius: f.radius('md');
+    margin-block: f.spacing('24');
+  }
+}

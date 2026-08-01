@@ -1,0 +1,27 @@
+{#
+    NOVA Brands Listing — src/views/pages/brands/index.twig
+    Confirmed fixed path (docs.salla.dev/422556m0): "Brands listing page,
+    shows the list of brands associated with the store. The page is
+    located at src/views/pages/brands/index.twig."
+    VERIFICATION NEEDED: the exact variable name for the brands
+    collection (assumed `brands`, by analogy with `products` on the
+    listing page) wasn't confirmed in the fetched snippet.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('brand.all_brands') }}</h1>
+
+        <div class="nova-grid">
+            {% for brand in brands %}
+                <div class="nova-col-6 nova-col-tablet-3 nova-col-desktop-2">
+                    {% include 'partials/brand/card.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/product/pagination.twig' %}
+    </div>
+{% endblock %}

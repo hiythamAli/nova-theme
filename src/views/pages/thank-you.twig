@@ -1,0 +1,30 @@
+{#
+    NOVA Thank You — src/views/pages/thank-you.twig
+    Confirmed exact filename (theme-raed directory listing). Shown after a
+    successful order. VERIFICATION NEEDED: exact `order` object fields —
+    `order.id`/`order.reference_id`/`order.total`/`order.status` assumed
+    by common convention, not confirmed in the docs consulted so far.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-thank-you">
+        <i class="sicon-check-circle nova-thank-you__icon" aria-hidden="true"></i>
+        <h1 class="nova-thank-you__title">{{ trans('order.thank_you_title') }}</h1>
+
+        {% if order is defined and order %}
+            <p class="nova-thank-you__reference">
+                {{ trans('order.reference') }}: <strong>{{ order.reference_id | default(order.id) }}</strong>
+            </p>
+        {% endif %}
+
+        <p class="nova-thank-you__message">{{ trans('order.thank_you_message') }}</p>
+
+        <div class="nova-thank-you__actions">
+            <a href="{{ link('/') }}" class="nova-btn nova-btn--primary">{{ trans('common.elements.back_home') }}</a>
+            <a href="{{ link('customer.orders') }}" class="nova-btn nova-btn--outline">{{ trans('order.view_orders') }}</a>
+        </div>
+    </div>
+{% endblock %}

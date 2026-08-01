@@ -1,0 +1,115 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA BASE RESET
+// =============================================================================
+
+.nova-visually-hidden {
+  @include m.visually-hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+// Wired to theme.settings 'general_smooth_scroll' — master.twig adds
+// this class to <html> when the merchant disables it.
+html.nova-no-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+// Wired to theme.settings 'animation_enable' — merchant-level opt-out,
+// separate from (and layered on top of) the browser's own
+// prefers-reduced-motion media query below, which is never overridable
+// by a theme setting since it reflects the visitor's own OS-level
+// accessibility preference.
+html.nova-no-animations {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Body typography (font-family, color, line-height) lives in
+// base/_typography.scss so font rules stay in one place. This file only
+// resets structural defaults.
+body {
+  min-height: 100vh;
+  background-color: var(--nova-color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+// Focus is never suppressed — see abstracts/_mixins.scss focus-ring() for the
+// styled equivalent used on interactive components. Uses --nova-color-
+// accent-text (fixed at build time, 4.51:1 against white) rather than the
+// raw --nova-color-accent custom property, which fails WCAG AA (2.29:1)
+// and is also merchant-editable via Theme Settings — see Phase 14 in
+// docs/architecture-mapping.md. Note: a merchant who sets an inaccessible
+// combination of primary/secondary/accent colors via Theme Settings can
+// still reduce contrast elsewhere in the theme; that's outside what a
+// theme's own build-time tokens can guarantee.
+:focus-visible {
+  outline: f.border-width('2') solid var(--nova-color-accent-text);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

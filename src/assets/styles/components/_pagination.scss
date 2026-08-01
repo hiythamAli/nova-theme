@@ -1,0 +1,51 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA PAGINATION
+// =============================================================================
+
+.nova-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: f.spacing('8');
+  padding-block: f.spacing('32');
+}
+
+.nova-pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: f.button-height('sm');
+  height: f.button-height('sm');
+  padding-inline: f.spacing('8');
+  border-radius: f.radius('sm');
+  font-size: var(--nova-text-sm);
+  color: f.color('text-secondary');
+
+  @include m.transition(background-color, color);
+
+  &:hover {
+    background: f.color('secondary');
+    color: f.color('text-primary');
+  }
+
+  &[aria-current='page'] {
+    background: f.color('primary');
+    color: f.color('text-white');
+  }
+
+  &[aria-disabled='true'] {
+    opacity: f.opacity('40');
+    pointer-events: none;
+  }
+}
+
+.nova-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: f.button-height('sm');
+  color: f.color('text-light');
+}

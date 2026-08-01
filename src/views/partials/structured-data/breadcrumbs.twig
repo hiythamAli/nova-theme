@@ -1,0 +1,26 @@
+{#
+    NOVA BreadcrumbList Schema — src/views/partials/structured-data/breadcrumbs.twig
+    Uses the confirmed `breadcrumbs` array (docs.salla.dev/422601m0:
+    {title, url}) — same data already rendered visually in
+    components/header/breadcrumbs.twig, just re-expressed as schema.org
+    JSON-LD. Gated behind the seo_enable_structured_data setting.
+#}
+
+{% if theme.settings.get('seo_enable_structured_data') and breadcrumbs is defined and breadcrumbs | length > 0 %}
+    {% set items = [] %}
+    {% for crumb in breadcrumbs %}
+        {% set items = items | merge([{
+            '@type': 'ListItem',
+            'position': loop.index,
+            'name': crumb.title,
+            'item': crumb.url,
+        }]) %}
+    {% endfor %}
+    <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': items
+        } | json_encode | raw }}
+    </script>
+{% endif %}

@@ -1,0 +1,28 @@
+{#
+    NOVA Notifications — src/views/pages/customer/notifications.twig
+    Confirmed exact path (theme-raed directory listing).
+    VERIFICATION NEEDED: `notifications` collection field names
+    (`.title`/`.body`/`.created_at`/`.read`) inferred, not confirmed.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('notifications.title') }}</h1>
+
+        <ul class="nova-notifications">
+            {% for notification in notifications %}
+                <li class="nova-notifications__item{{ notification.read ? '' : ' is-unread' }}">
+                    <p class="nova-notifications__body">{{ notification.body | default(notification.title) }}</p>
+                    <span class="nova-text-xs" style="color: var(--nova-color-text-light)">
+                        {{ notification.created_at }}
+                    </span>
+                </li>
+            {% else %}
+                <p class="nova-listing__empty">{{ trans('notifications.empty') }}</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

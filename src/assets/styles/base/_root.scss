@@ -1,0 +1,73 @@
+@use 'sass:map';
+@use '../abstracts/tokens' as t;
+
+// =============================================================================
+// NOVA CSS CUSTOM PROPERTIES
+// Colors live in themes/_light.scss (theme-swappable). Everything else that's
+// static across themes — spacing, radius, shadow, motion, z-index — is
+// emitted here once, generated from the same maps functions.scss reads from,
+// so the two can never drift apart.
+// =============================================================================
+
+:root {
+  // Spacing
+  @each $key, $value in t.$nova-spacing {
+    --nova-space-#{$key}: #{$value};
+  }
+
+  // Radius
+  @each $key, $value in t.$nova-radius {
+    --nova-radius-#{$key}: #{$value};
+  }
+
+  // Shadows
+  @each $key, $value in t.$nova-shadows {
+    --nova-shadow-#{$key}: #{$value};
+  }
+
+  // Transitions
+  @each $key, $value in t.$nova-transitions {
+    --nova-duration-#{$key}: #{$value};
+  }
+
+  // Z-index
+  @each $key, $value in t.$nova-z-index {
+    --nova-z-#{$key}: #{$value};
+  }
+
+  // Typography
+  --nova-font-primary: #{t.$nova-font-primary};
+  --nova-font-secondary: #{t.$nova-font-secondary};
+
+  @each $key, $value in t.$nova-font-sizes {
+    --nova-text-#{$key}: #{$value};
+  }
+
+  @each $key, $value in t.$nova-font-weights {
+    --nova-weight-#{$key}: #{$value};
+  }
+
+  // Containers
+  @each $key, $value in t.$nova-containers {
+    --nova-container-#{$key}: #{$value};
+  }
+
+  // Grid
+  --nova-grid-columns: #{t.$nova-grid-columns};
+  --nova-grid-gap: #{t.$nova-grid-gap};
+
+  // Section spacing (responsive overrides below)
+  --nova-section-spacing: #{map.get(t.$nova-section-spacing, 'mobile')};
+}
+
+@media (min-width: map.get(t.$nova-breakpoints, 'tablet')) {
+  :root {
+    --nova-section-spacing: #{map.get(t.$nova-section-spacing, 'tablet')};
+  }
+}
+
+@media (min-width: map.get(t.$nova-breakpoints, 'desktop')) {
+  :root {
+    --nova-section-spacing: #{map.get(t.$nova-section-spacing, 'desktop')};
+  }
+}

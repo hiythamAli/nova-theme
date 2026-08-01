@@ -1,0 +1,7 @@
+// Spin — used by .nova-loader and .nova-btn--loading. Centralized here so
+// it's defined exactly once rather than duplicated per consuming component.
+@keyframes nova-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

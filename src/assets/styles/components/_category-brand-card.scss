@@ -1,0 +1,75 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA CATEGORY CARD
+// =============================================================================
+
+.nova-category-card {
+  display: block;
+  text-align: center;
+}
+
+.nova-category-card__media {
+  aspect-ratio: f.card-ratio('square');
+  border-radius: f.radius('round');
+  overflow: hidden;
+  background: f.color('secondary');
+
+  @include m.transition(box-shadow);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nova-category-card:hover .nova-category-card__media {
+  box-shadow: f.shadow('medium');
+}
+
+.nova-category-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('4');
+  padding-block-start: f.spacing('12');
+}
+
+.nova-category-card__name {
+  font-weight: var(--nova-weight-medium);
+  color: f.color('text-primary');
+}
+
+.nova-category-card__count {
+  font-size: var(--nova-text-xs);
+  color: f.color('text-light');
+}
+
+// =============================================================================
+// NOVA BRAND CARD
+// =============================================================================
+
+.nova-brand-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: f.spacing('24');
+  background: f.color('surface');
+  border: f.border-width('1') solid f.color('border');
+  border-radius: f.radius('md');
+  filter: grayscale(1);
+  opacity: f.opacity('60');
+
+  @include m.transition(filter, opacity);
+
+  &:hover {
+    filter: grayscale(0);
+    opacity: f.opacity('100');
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="{{ trans('lang.locale') }}" dir="{{ trans('lang.dir') }}" class="{{ theme.settings.get('general_smooth_scroll') ? '' : 'nova-no-smooth-scroll' }} {{ theme.settings.get('animation_enable') ? '' : 'nova-no-animations' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="{{ theme.settings.get('general_primary_color') | default('#111111') }}">
+
+    {% hook 'head:start' %}
+
+    {#
+        NOTE: exact global-variable names for the document <title> and meta
+        description could not be confirmed — the "Global Variables" reference
+        table on docs.salla.dev is rendered client-side and wasn't retrievable.
+        `page_title` / `page_description` below are a reasonable placeholder;
+        verify against the live Global Variables page (docs.salla.dev, Theme
+        Architecture → Layouts → Global Variables) before shipping, since an
+        unverified variable is exactly the kind of thing NOVA's rules forbid
+        inventing silently.
+    #}
+    <title>{{ page_title }}{{ theme.settings.get('seo_meta_title_suffix') ? ' ' ~ theme.settings.get('seo_meta_title_suffix') : '' }}</title>
+    <meta name="description" content="{{ page_description }}">
+    {% include 'partials/seo.twig' %}
+
+    <!-- Salla Icons — required in every Twilight theme's <head> (docs.salla.dev/422550m0) -->
+    <link rel="stylesheet" href="https://cdn.salla.network/fonts/sallaicons.css">
+
+    <link rel="preload" href="{{ 'IBMPlexSansArabic-Regular.woff2' | asset('dist/fonts') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ 'main.css' | asset('dist') }}">
+
+    <!--
+        Merchant-configurable overrides (Salla Theme Settings) for the NOVA
+        color tokens. Loaded AFTER main.css so these win the cascade — static
+        token defaults live in src/assets/styles/themes/_light.scss.
+    -->
+    <style>
+        :root {
+            --nova-color-primary: {{ theme.settings.get('general_primary_color') | default('#111111') }};
+            --nova-color-secondary: {{ theme.settings.get('general_secondary_color') | default('#F8F8F8') }};
+            --nova-color-accent: {{ theme.settings.get('general_accent_color') | default('#C7A76C') }};
+            --nova-font-heading: var(--nova-font-{{ theme.settings.get('typography_heading_font') | default('primary') }});
+        }
+    </style>
+
+    {% if theme.settings.get('advanced_custom_css') %}
+        <style>{{ theme.settings.get('advanced_custom_css') | raw }}</style>
+    {% endif %}
+
+    {% hook 'head' %}
+    {% hook 'head:end' %}
+</head>
+<body class="nova-theme{{ theme.settings.get('typography_uppercase_nav') ? ' nova-uppercase-nav' : '' }} {% hook 'body:classes' %}">
+
+    {% hook 'body:start' %}
+
+    {% if theme.settings.get('general_page_loader') %}
+        <div class="nova-page-loader" data-nova-page-loader>
+            <span class="nova-loader" aria-hidden="true"></span>
+        </div>
+    {% endif %}
+
+    <a href="#main-content" class="nova-skip-link">{{ trans('common.skip_to_content') }}</a>
+
+    {#
+        Bridge for the small set of strings client-generated markup needs
+        (Toast, etc.) — see src/scripts/config/i18n.ts. json_encode is a
+        standard Twig filter, not Salla-specific.
+    #}
+    <script id="nova-i18n" type="application/json">
+        {{ {
+            'dismiss': trans('common.dismiss'),
+            'close': trans('common.close'),
+            'chat_on_whatsapp': trans('common.chat_on_whatsapp'),
+            'scroll_to_top': trans('common.scroll_to_top'),
+            'added_to_wishlist': trans('common.added_to_wishlist'),
+            'wishlist_error': trans('common.wishlist_error'),
+            'compare_limit_reached': trans('common.compare_limit_reached'),
+            'newsletter_subscribed': trans('newsletter.subscribed')
+        } | json_encode | raw }}
+    </script>
+
+    <header
+    class="nova-header{{ theme.settings.get('header_transparent_header') ? ' nova-header--transparent' : '' }}"
+    data-sticky="{{ theme.settings.get('header_sticky_header') ? 'true' : 'false' }}"
+>
+        {% include 'components/header/header.twig' %}
+    </header>
+
+    <main class="nova-main" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="nova-footer">
+        {% include 'components/footer/footer.twig' %}
+    </footer>
+
+    {# NOVA custom addition, not a Salla-provided component — a plain Twig
+       include of our own partial, per Core Features in 01-Project-Vision.md
+       (Floating WhatsApp, Scroll To Top). #}
+    {% include 'components/common/floating-buttons.twig' %}
+
+    {% if theme.settings.get('advanced_custom_js') %}
+        <script>{{ theme.settings.get('advanced_custom_js') | raw }}</script>
+    {% endif %}
+
+    {% hook 'body:end' %}
+
+    <script type="module" defer src="{{ 'main.js' | asset('dist') }}"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

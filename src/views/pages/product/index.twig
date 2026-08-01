@@ -1,0 +1,74 @@
+{#
+    NOVA Products Listing — src/views/pages/product/index.twig
+    Confirmed (docs.salla.dev/422559m0): this single page serves Category,
+    Offers, Tags, and Search-result contexts — Salla has no separate
+    "Category Page" template, unlike what 05-Pages.md's docs assumed.
+    `page.title` and `sort_list` are confirmed variables; `products` is
+    confirmed to be the object containing the listing's products.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    {% if banner_image is defined and banner_image %}
+        <div class="nova-category-banner">
+            <img src="{{ banner_image }}" alt="{{ page.title }}" loading="eager">
+            <h1 class="nova-category-banner__title">{{ page.title }}</h1>
+        </div>
+    {% else %}
+        <div class="nova-container">
+            <h1 class="nova-listing-heading">{{ page.title }}</h1>
+        </div>
+    {% endif %}
+
+    <div class="nova-container nova-listing">
+        {% if theme.settings.get('category_sidebar_filters') %}
+            <aside class="nova-listing__sidebar">
+                {% include 'partials/product/filters-sidebar.twig' %}
+            </aside>
+        {% endif %}
+
+        {#
+            Mobile filter drawer — same filter markup, reusable via the
+            Drawer component (Phase 4). data-nova-drawer="filters" matches
+            the toolbar's data-nova-drawer-open="filters" trigger above.
+        #}
+        {% if theme.settings.get('category_sidebar_filters') %}
+            <div class="nova-drawer" data-nova-drawer="filters" data-open="false">
+                <div class="nova-drawer__header">
+                    <span class="nova-modal__title">{{ trans('category.filters') }}</span>
+                    <button type="button" class="nova-modal__close" data-nova-drawer-close="filters" aria-label="{{ trans('common.close') }}">
+                        <i class="sicon-close" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="nova-drawer__body">
+                    {% include 'partials/product/filters-sidebar.twig' %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="nova-listing__main">
+            {% include 'partials/product/toolbar.twig' %}
+
+            <div
+                class="nova-grid nova-listing__grid"
+                data-nova-listing-grid
+                style="--nova-listing-cols: {{ theme.settings.get('category_products_per_row') | default(4) }}"
+            >
+                {% for product in products %}
+                    <div class="nova-col-6 nova-col-tablet-4 nova-col-desktop-3 nova-col-wide-2">
+                        {% include 'partials/product/card.twig' %}
+                    </div>
+                {% else %}
+                    <p class="nova-listing__empty">{{ trans('category.no_products') }}</p>
+                {% endfor %}
+            </div>
+
+            {% include 'partials/product/pagination.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" defer src="{{ 'listing.js' | asset('dist') }}"></script>
+{% endblock %}

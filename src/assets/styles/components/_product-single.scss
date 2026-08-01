@@ -1,0 +1,123 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA PRODUCT SINGLE
+// =============================================================================
+
+.nova-product-single {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: f.spacing('32');
+  padding-block: f.spacing('32');
+
+  @include m.respond-to('laptop') {
+    grid-template-columns: 1fr 1fr;
+    gap: f.spacing('64');
+  }
+}
+
+.nova-product-single__info {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+}
+
+// Wired to theme.settings 'product_sticky_gallery'
+.nova-product-single__gallery--sticky {
+  @include m.respond-to('laptop') {
+    position: sticky;
+    inset-block-start: f.spacing('96');
+    align-self: flex-start;
+  }
+}
+
+.nova-product-single__name {
+  font-size: var(--nova-text-2xl);
+
+  @include m.respond-to('tablet') {
+    font-size: var(--nova-text-3xl);
+  }
+}
+
+.nova-product-single__subtitle {
+  color: f.color('text-secondary');
+}
+
+.nova-product-single__price {
+  margin-block: f.spacing('8');
+}
+
+.nova-product-single__cart-row {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('16');
+  margin-block: f.spacing('16');
+}
+
+.nova-product-single__cta {
+  flex: 1;
+}
+
+.nova-product-single__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: f.spacing('8');
+  list-style: none;
+}
+
+// Wired to theme.settings 'product_show_trust_badges'
+.nova-trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: f.spacing('16');
+  padding: f.spacing('16');
+  background: f.color('secondary');
+  border-radius: f.radius('sm');
+  font-size: var(--nova-text-xs);
+  color: f.color('text-secondary');
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: f.spacing('4');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Sticky Buy Bar (mobile only — 01-Project-Vision.md Core Feature)
+// -----------------------------------------------------------------------------
+.nova-sticky-buy {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--nova-z-header);
+  display: flex;
+  align-items: center;
+  gap: f.spacing('16');
+  padding: f.spacing('12') f.spacing('16');
+  background: f.color('surface');
+  border-block-start: f.border-width('1') solid f.color('border');
+  box-shadow: f.shadow('large');
+
+  transform: translateY(100%);
+
+  @include m.transition(transform);
+
+  &.is-visible {
+    transform: translateY(0);
+  }
+
+  @include m.respond-to('laptop') {
+    display: none;
+  }
+}
+
+.nova-sticky-buy__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('4');
+  font-size: var(--nova-text-sm);
+}

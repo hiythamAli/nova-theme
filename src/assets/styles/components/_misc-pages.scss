@@ -1,0 +1,167 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA MISC PAGES — Thank You, Comments, Notifications, Profile, Brand, Article
+// =============================================================================
+
+.nova-thank-you {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: f.spacing('12');
+  text-align: center;
+  padding-block: f.spacing('64');
+}
+
+.nova-thank-you__icon {
+  font-size: 64px;
+  color: f.color('success');
+}
+
+.nova-thank-you__title {
+  font-size: var(--nova-text-2xl);
+}
+
+.nova-thank-you__actions {
+  display: flex;
+  gap: f.spacing('16');
+  margin-block-start: f.spacing('16');
+}
+
+// -----------------------------------------------------------------------------
+// Comments / Reviews
+// -----------------------------------------------------------------------------
+.nova-comments__list {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('20');
+  list-style: none;
+}
+
+.nova-comments__header {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('12');
+  margin-block-end: f.spacing('8');
+}
+
+.nova-comments__author {
+  display: block;
+  font-weight: var(--nova-weight-medium);
+  font-size: var(--nova-text-sm);
+}
+
+.nova-comments__body {
+  color: f.color('text-secondary');
+  font-size: var(--nova-text-sm);
+}
+
+.nova-comments__empty {
+  color: f.color('text-light');
+  text-align: center;
+  padding-block: f.spacing('24');
+}
+
+// -----------------------------------------------------------------------------
+// Notifications
+// -----------------------------------------------------------------------------
+.nova-notifications {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('4');
+}
+
+.nova-notifications__item {
+  padding: f.spacing('16');
+  border-block-end: f.border-width('1') solid f.color('border');
+
+  &.is-unread {
+    background: f.color('secondary');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Profile
+// -----------------------------------------------------------------------------
+.nova-profile__form {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('16');
+  max-width: 480px;
+}
+
+// -----------------------------------------------------------------------------
+// Brand header
+// -----------------------------------------------------------------------------
+.nova-brand-header {
+  text-align: center;
+  padding-block: f.spacing('32');
+}
+
+.nova-brand-header__logo {
+  max-height: 64px;
+  margin-inline: auto;
+  margin-block-end: f.spacing('16');
+}
+
+// -----------------------------------------------------------------------------
+// Article
+// -----------------------------------------------------------------------------
+.nova-article__cover {
+  width: 100%;
+  aspect-ratio: f.card-ratio('widescreen');
+  object-fit: cover;
+  border-radius: f.radius('md');
+  margin-block-end: f.spacing('24');
+}
+
+.nova-article__meta {
+  display: flex;
+  gap: f.spacing('16');
+  font-size: var(--nova-text-xs);
+  color: f.color('text-light');
+  margin-block-end: f.spacing('24');
+}
+
+// -----------------------------------------------------------------------------
+// Orders
+// -----------------------------------------------------------------------------
+.nova-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+}
+
+.nova-orders-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: f.spacing('16');
+  padding: f.spacing('16');
+  background: f.color('surface');
+  border: f.border-width('1') solid f.color('border');
+  border-radius: f.radius('sm');
+}
+
+.nova-orders-list__reference {
+  display: block;
+  font-weight: var(--nova-weight-medium);
+}
+
+.nova-orders-list__total {
+  font-weight: var(--nova-weight-semibold);
+}
+
+.nova-order-items__item {
+  padding-block: f.spacing('12');
+  border-block-end: f.border-width('1') solid f.color('border');
+}
+
+.nova-order-items__grand-total {
+  display: flex;
+  justify-content: space-between;
+  padding-block-start: f.spacing('16');
+  font-weight: var(--nova-weight-semibold);
+}

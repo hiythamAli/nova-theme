@@ -1,0 +1,50 @@
+{#
+    NOVA Footer — src/views/components/footer/footer.twig
+    Per docs.salla.dev/422602m0: the footer's main component embeds
+    `contacts`, `payment-methods`, and `social`. NOVA also includes the
+    confirmed `mobile-app` and `menu` footer components.
+#}
+
+{% hook 'component:footer.start' %}
+
+<div class="nova-container nova-footer__grid">
+
+    <div class="nova-footer__col nova-footer__col--brand">
+        {% if store.logo %}
+            <img src="{{ store.logo }}" alt="{{ store.name }}" class="nova-footer__logo" width="120" height="34">
+        {% endif %}
+        <p class="nova-footer__description">{{ store.description | default('') }}</p>
+        {% if theme.settings.get('footer_show_social_links') %}
+            {% include 'components/footer/social.twig' %}
+        {% endif %}
+    </div>
+
+    <div class="nova-footer__col">
+        <h3 class="nova-footer__heading">{{ trans('nav.categories') }}</h3>
+        {% include 'components/footer/menu.twig' %}
+    </div>
+
+    <div class="nova-footer__col">
+        <h3 class="nova-footer__heading">{{ trans('common.contact_us') }}</h3>
+        {% include 'components/footer/contacts.twig' %}
+    </div>
+
+    <div class="nova-footer__col">
+        <h3 class="nova-footer__heading">{{ trans('common.get_the_app') }}</h3>
+        {% include 'components/footer/mobile-app.twig' %}
+    </div>
+
+</div>
+
+<div class="nova-footer__bottom">
+    <div class="nova-container nova-footer__bottom-row">
+        <p class="nova-footer__copyright">
+            &copy; {{ "now" | date('Y') }} {{ store.name }}. {{ trans('common.all_rights_reserved') }}
+        </p>
+        {% if theme.settings.get('footer_show_payment_icons') %}
+            {% include 'components/footer/payment-methods.twig' %}
+        {% endif %}
+    </div>
+</div>
+
+{% hook 'component:footer.end' %}

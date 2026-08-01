@@ -1,0 +1,43 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// Reveal — scroll-triggered entrance for sections (paired with an
+// IntersectionObserver in TS; this class only defines the visual transition).
+.nova-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--nova-duration-slow) ease,
+    transform var(--nova-duration-slow) ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @include m.reduced-motion {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Lift — the signature hover treatment for premium product/category cards.
+.nova-lift {
+  transition:
+    transform var(--nova-duration-normal) ease,
+    box-shadow var(--nova-duration-normal) ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: f.shadow('large');
+  }
+
+  @include m.reduced-motion {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}

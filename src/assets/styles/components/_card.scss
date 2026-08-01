@@ -1,0 +1,60 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA CARD
+// Base surface for ProductCard, CategoryCard, BrandCard (built in Phase 5).
+// =============================================================================
+
+.nova-card {
+  display: flex;
+  flex-direction: column;
+  background: f.color('surface');
+  border-radius: f.radius('md');
+  overflow: hidden;
+
+  @include m.transition(box-shadow, transform);
+}
+
+.nova-card--bordered {
+  border: f.border-width('1') solid f.color('border');
+}
+
+.nova-card--elevated {
+  box-shadow: f.shadow('small');
+
+  &:hover {
+    box-shadow: f.shadow('medium');
+  }
+}
+
+.nova-card__media {
+  position: relative;
+  aspect-ratio: f.card-ratio('portrait');
+  overflow: hidden;
+  background: f.color('secondary');
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nova-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('8');
+  padding: f.spacing('16');
+}
+
+.nova-card__title {
+  font-size: var(--nova-text-base);
+  font-weight: var(--nova-weight-medium);
+  color: f.color('text-primary');
+}
+
+.nova-card__subtitle {
+  font-size: var(--nova-text-sm);
+  color: f.color('text-secondary');
+}

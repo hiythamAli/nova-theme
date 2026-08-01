@@ -1,0 +1,59 @@
+{#
+    NOVA Menu Item — src/views/components/header/menu-item.twig
+    Per docs.salla.dev/422601m0: "generates menu items with corresponding
+    links and handles child menu items and associated products, adapting to
+    different screen sizes." Exact field names on a menu item beyond a link
+    + title (e.g. whether children live under `item.children` vs
+    `item.sub_menus`, and how "associated products" are keyed) were not
+    confirmed by the fetched docs — verify against a live store before
+    shipping. Structure below is the closest reasonable interpretation.
+#}
+
+<a
+    href="{{ item.url | default('#') }}"
+    class="nova-menu__link"
+    {% if item.children is defined and item.children|length > 0 %}
+        aria-haspopup="true" aria-expanded="false"
+    {% endif %}
+>
+    {{ item.title }}
+    {% if item.children is defined and item.children|length > 0 %}
+        <i class="sicon-arrow-down nova-menu__caret" aria-hidden="true"></i>
+    {% endif %}
+</a>
+
+{% if item.children is defined and item.children|length > 0 %}
+    <div class="nova-mega-menu">
+        <div class="nova-container nova-mega-menu__inner">
+            <ul class="nova-mega-menu__columns">
+                {% for child in item.children %}
+                    <li class="nova-mega-menu__column">
+                        <a href="{{ child.url | default('#') }}" class="nova-mega-menu__column-title">
+                            {{ child.title }}
+                        </a>
+                        {% if child.children is defined and child.children|length > 0 %}
+                            <ul class="nova-mega-menu__sublist">
+                                {% for grandchild in child.children %}
+                                    <li>
+                                        <a href="{{ grandchild.url | default('#') }}">{{ grandchild.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if item.products is defined and item.products|length > 0 %}
+                <div class="nova-mega-menu__products">
+                    {% for product in item.products|slice(0, 4) %}
+                        <a href="{{ product.url | default('#') }}" class="nova-mega-menu__product">
+                            <img src="{{ product.image.url | default('') }}" alt="{{ product.name | default('') }}" loading="lazy">
+                            <span class="nova-mega-menu__product-name nova-truncate">{{ product.name }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

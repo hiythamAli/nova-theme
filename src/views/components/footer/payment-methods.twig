@@ -1,0 +1,17 @@
+{#
+    NOVA Payment Methods — src/views/components/footer/payment-methods.twig
+    Confirmed (docs.salla.dev/422602m0): receives an array of
+    `payment_methods`, looped to display each (e.g. "Cash On Delivery").
+#}
+
+<ul class="nova-footer__payments">
+    {% for method in payment_methods %}
+        <li class="nova-footer__payment-item">
+            {% if method.image %}
+                <img src="{{ method.image }}" alt="{{ method.name | default('') }}" loading="lazy" width="40" height="26">
+            {% else %}
+                <span>{{ method.name }}</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

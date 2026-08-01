@@ -1,0 +1,17 @@
+{#
+    NOVA Price — src/views/partials/product/price.twig
+    Shows sale price + struck-through regular price, or just the regular
+    price when not on sale. Field names inferred (see card.twig note).
+#}
+
+<div class="nova-price">
+    {% if product.on_sale and product.regular_price %}
+        <span class="nova-price__sale">{{ product.price }}</span>
+        <span class="nova-price__regular">{{ product.regular_price }}</span>
+        {% if product.discount_percentage %}
+            <span class="nova-badge nova-badge--sale">-{{ product.discount_percentage }}%</span>
+        {% endif %}
+    {% else %}
+        <span class="nova-price__regular nova-price__regular--only">{{ product.price }}</span>
+    {% endif %}
+</div>

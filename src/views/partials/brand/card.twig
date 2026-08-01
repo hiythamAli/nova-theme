@@ -1,0 +1,15 @@
+{#
+    NOVA Brand Card — src/views/partials/brand/card.twig
+    NOVA-authored (no confirmed official web-component equivalent).
+    Field names (brand.logo/name/url) are inferred.
+#}
+
+<a href="{{ brand.url | default('#') }}" class="nova-brand-card">
+    <img
+        src="{{ brand.logo | default('') }}"
+        alt="{{ brand.name | default('') }}"
+        loading="lazy"
+        width="120"
+        height="60"
+    >
+</a>

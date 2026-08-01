@@ -1,0 +1,23 @@
+{#
+    NOVA Single Page — src/views/pages/page-single.twig
+    Confirmed exact filename (github.com/SallaApp/theme-raed's directory
+    listing: src/views/pages/page-single.twig) — corrected from an earlier
+    guess of "page.twig". Confirmed (docs.salla.dev/422556m0): this is
+    Salla's unified mechanism for arbitrary merchant content (About Us,
+    Policies, etc.) — 05-Pages.md's separate per-topic templates don't
+    exist as distinct Salla routes.
+
+    `page.title`/`page.content` assumed by analogy with confirmed
+    `page.title` on other templates — not separately confirmed.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <div class="nova-container nova-single-page">
+        <h1 class="nova-single-page__title">{{ page.title }}</h1>
+        <div class="nova-single-page__content">
+            {{ page.content | raw }}
+        </div>
+    </div>
+{% endblock %}

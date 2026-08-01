@@ -1,0 +1,33 @@
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA CONTAINERS
+// margin-inline / padding-inline are logical properties: they resolve to
+// left/right based on `dir` automatically, so these rules never need a
+// separate RTL variant.
+// =============================================================================
+
+.nova-container {
+  @include m.container('2xl');
+}
+
+.nova-container--sm {
+  @include m.container('sm');
+}
+
+.nova-container--md {
+  @include m.container('md');
+}
+
+.nova-container--lg {
+  @include m.container('lg');
+}
+
+.nova-container--xl {
+  @include m.container('xl');
+}
+
+// Full-bleed section that still respects section-spacing vertically.
+.nova-section {
+  padding-block: var(--nova-section-spacing);
+}

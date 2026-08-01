@@ -1,0 +1,26 @@
+{#
+    NOVA Organization/WebSite Schema — src/views/partials/structured-data/organization.twig
+    Included only on src/views/pages/index.twig. `store.name`/`.logo` are
+    the same flagged-since-Phase-3 globals used throughout the theme;
+    `store.url`/`.description` inferred by the same convention.
+#}
+
+{% if theme.settings.get('seo_enable_structured_data') %}
+    <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            'name': store.name,
+            'url': store.url | default(canonical_url) | default(''),
+            'logo': store.logo | default(''),
+        } | json_encode | raw }}
+    </script>
+    <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            'name': store.name,
+            'url': store.url | default(canonical_url) | default(''),
+        } | json_encode | raw }}
+    </script>
+{% endif %}

@@ -1,0 +1,24 @@
+{#
+    NOVA Loyalty — src/views/pages/loyalty.twig
+    Confirmed exact filename (theme-raed directory listing). The
+    confirmed <salla-loyalty-panel> web component (seen in the official
+    cart.twig, with prize-points/prize-title attributes) is reused here
+    for the points summary rather than hand-building that display.
+    VERIFICATION NEEDED: `loyalty.points_balance`/`loyalty.tier` and any
+    points-history list shape weren't confirmed.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('loyalty.title') }}</h1>
+
+        {% if loyalty is defined and loyalty %}
+            <salla-loyalty-panel
+                prize-points="{{ loyalty.prize.points }}"
+                prize-title="{{ loyalty.prize.title }}"
+            ></salla-loyalty-panel>
+        {% endif %}
+    </div>
+{% endblock %}

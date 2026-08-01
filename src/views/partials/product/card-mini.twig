@@ -1,0 +1,22 @@
+{#
+    NOVA Product Card (mini) — src/views/partials/product/card-mini.twig
+    Compact horizontal layout for tight spaces (related products, cart
+    drawer recommendations, search results dropdown).
+#}
+
+<article class="nova-product-card-mini">
+    <a href="{{ product.url | default('#') }}" class="nova-product-card-mini__media">
+        <img
+            src="{{ product.image.url | default('') }}"
+            alt="{{ product.name | default('') }}"
+            loading="lazy"
+            width="80"
+            height="80"
+        >
+    </a>
+
+    <div class="nova-product-card-mini__body">
+        <a href="{{ product.url | default('#') }}" class="nova-truncate">{{ product.name }}</a>
+        {% include 'partials/product/price.twig' %}
+    </div>
+</article>

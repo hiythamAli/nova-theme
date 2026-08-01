@@ -1,0 +1,129 @@
+{#
+    NOVA Single Product — src/views/pages/product/single.twig
+    Confirmed fixed path (docs.salla.dev/422561m0). Confirmed fields:
+    product.promotion_title, product.brand, product.name, product.rating,
+    product.subtitle, product.description, product.tags, product.images,
+    product.options. `product.offer` and `comments` are confirmed to be
+    shown via component calls, but the exact Twig syntax wasn't captured —
+    used the standard {% component %} tag as the defensible reading.
+#}
+
+{% extends "layouts.master" %}
+
+{% block content %}
+    {% include 'partials/structured-data/product.twig' %}
+    <div class="nova-container nova-product-single">
+
+        <div class="nova-product-single__gallery{{ theme.settings.get('product_sticky_gallery') ? ' nova-product-single__gallery--sticky' : '' }}">
+            {% include 'partials/product/gallery.twig' %}
+        </div>
+
+        <div class="nova-product-single__info">
+            {% if product.brand %}
+                <a href="{{ product.brand.url | default('#') }}" class="nova-text-sm nova-font-secondary">
+                    {{ product.brand.name | default(product.brand) }}
+                </a>
+            {% endif %}
+
+            <h1 class="nova-product-single__name">{{ product.name }}</h1>
+
+            {% if product.subtitle %}
+                <p class="nova-product-single__subtitle">{{ product.subtitle }}</p>
+            {% endif %}
+
+            {% if product.rating %}
+                <div class="nova-rating">
+                    <span class="nova-rating__stars">
+                        <span class="nova-rating__stars-fill" style="width: {{ (product.rating / 5 * 100) }}%"></span>
+                    </span>
+                    <span class="nova-rating__count">({{ product.rating_count | default(0) }})</span>
+                </div>
+            {% endif %}
+
+            {% if product.promotion_title %}
+                <span class="nova-badge nova-badge--accent">{{ product.promotion_title }}</span>
+            {% endif %}
+
+            {% include 'partials/product/options.twig' %}
+
+            {% if theme.settings.get('product_show_trust_badges') %}
+                <div class="nova-trust-badges">
+                    <span><i class="sicon-shipping-fast" aria-hidden="true"></i> {{ trans('product.trust_shipping') }}</span>
+                    <span><i class="sicon-return" aria-hidden="true"></i> {{ trans('product.trust_returns') }}</span>
+                    <span><i class="sicon-lock" aria-hidden="true"></i> {{ trans('product.trust_secure') }}</span>
+                </div>
+            {% endif %}
+
+            {% if product.offer is defined and product.offer %}
+                {% component product.offer %}
+            {% endif %}
+
+            <div class="nova-tabs" data-nova-tabs>
+                <div class="nova-tabs__list" role="tablist">
+                    <button class="nova-tabs__trigger" role="tab" aria-selected="true" aria-controls="tab-description" id="trigger-description">
+                        {{ trans('product.description') }}
+                    </button>
+                    <button class="nova-tabs__trigger" role="tab" aria-selected="false" aria-controls="tab-specs" id="trigger-specs">
+                        {{ trans('product.specifications') }}
+                    </button>
+                    <button class="nova-tabs__trigger" role="tab" aria-selected="false" aria-controls="tab-reviews" id="trigger-reviews">
+                        {{ trans('product.reviews') }}
+                    </button>
+                </div>
+
+                <div class="nova-tabs__panel" id="tab-description" role="tabpanel" aria-labelledby="trigger-description">
+                    {{ product.description | raw }}
+                </div>
+
+                <div class="nova-tabs__panel" id="tab-specs" role="tabpanel" aria-labelledby="trigger-specs" hidden>
+                    {% if product.tags %}
+                        <ul class="nova-product-single__tags">
+                            {% for tag in product.tags %}
+                                <li class="nova-badge nova-badge--outline">{{ tag.name | default(tag) }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="nova-tabs__panel" id="tab-reviews" role="tabpanel" aria-labelledby="trigger-reviews" hidden>
+                    {% component comments %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if related_products is defined and related_products | length > 0 %}
+        <section class="nova-section nova-container">
+            <h2 class="nova-section__title">{{ trans('product.related_products') }}</h2>
+            <div class="nova-grid">
+                {% for product in related_products %}
+                    <div class="nova-col-6 nova-col-tablet-4 nova-col-desktop-3 nova-col-wide-2">
+                        {% include 'partials/product/card.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {#
+        Sticky Buy Bar (mobile) — 01-Project-Vision.md Core Feature.
+        Reuses the same confirmed web components as the main form above.
+    #}
+    {% if theme.settings.get('product_sticky_buy_bar') %}
+        <div class="nova-sticky-buy" data-nova-sticky-buy>
+            <div class="nova-sticky-buy__info">
+                <span class="nova-truncate">{{ product.name }}</span>
+                {% include 'partials/product/price.twig' %}
+            </div>
+            <salla-add-product-button
+                product-id="{{ product.id }}"
+                product-status="{{ product.status | default('sale') }}"
+                product-type="{{ product.type | default('product') }}"
+            ></salla-add-product-button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" defer src="{{ 'product.js' | asset('dist') }}"></script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{#
+    NOVA Hero Banner — src/views/components/home/nova-hero-banner.twig
+    Custom Theme Component (twilight.json → components → nova-hero-banner).
+    `component` here refers to this component's own configured field data
+    (slides array), the standard way merchant-entered Theme Component
+    fields are exposed per docs.salla.dev/421921m0's custom-slider example.
+#}
+
+<section
+    class="nova-hero"
+    data-nova-hero
+    data-autoplay="{{ theme.settings.get('hero_autoplay') ? 'true' : 'false' }}"
+    data-autoplay-speed="{{ theme.settings.get('hero_autoplay_speed_ms') | default(6000) }}"
+>
+    <div class="nova-hero__slides">
+        {% for slide in component.slides %}
+            <div class="nova-hero__slide{{ loop.first ? ' is-active' : '' }}">
+                <img
+                    src="{{ slide.image }}"
+                    alt="{{ slide.title | default('') }}"
+                    loading="{{ loop.first ? 'eager' : 'lazy' }}"
+                    fetchpriority="{{ loop.first ? 'high' : 'auto' }}"
+                    class="nova-hero__image"
+                >
+                <div class="nova-hero__content">
+                    {% if slide.title %}
+                        <h2 class="nova-hero__title nova-reveal">{{ slide.title }}</h2>
+                    {% endif %}
+                    {% if slide.subtitle %}
+                        <p class="nova-hero__subtitle nova-reveal">{{ slide.subtitle }}</p>
+                    {% endif %}
+                    {% if slide.cta_url %}
+                        <a href="{{ slide.cta_url }}" class="nova-btn nova-btn--primary nova-btn--lg nova-reveal">
+                            {{ slide.cta_label | default(trans('common.shop_now')) }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if component.slides | length > 1 %}
+        <div class="nova-hero__nav">
+            <button type="button" class="nova-hero__arrow nova-hero__arrow--prev" aria-label="{{ trans('common.previous') }}">
+                <i class="sicon-arrow-{{ trans('lang.dir') == 'rtl' ? 'right' : 'left' }}" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="nova-hero__arrow nova-hero__arrow--next" aria-label="{{ trans('common.next') }}">
+                <i class="sicon-arrow-{{ trans('lang.dir') == 'rtl' ? 'left' : 'right' }}" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="nova-hero__dots" role="tablist" aria-label="{{ trans('common.slides') }}">
+            {% for slide in component.slides %}
+                <button
+                    type="button"
+                    class="nova-hero__dot{{ loop.first ? ' is-active' : '' }}"
+                    role="tab"
+                    aria-label="{{ trans('common.go_to_slide') }} {{ loop.index }}"
+                ></button>
+            {% endfor %}
+        </div>
+    {% endif %}
+</section>

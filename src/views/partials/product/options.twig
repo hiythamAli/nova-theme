@@ -1,0 +1,42 @@
+{#
+    NOVA Product Options — src/views/partials/product/options.twig
+    Confirmed (docs.salla.dev/422561m0): `product.options` is loopable,
+    and this section sits between the confirmed hooks
+    `product:single.form.start` / `product:single.form.end`. Rather than
+    hand-build every option type (text, dropdown, image swatch, etc.) from
+    an unconfirmed field shape, this delegates to the official
+    <salla-product-options> web component (confirmed name,
+    docs.salla.dev/422688m0), which is Salla's own ready-made component
+    for exactly this.
+
+    Note: the fetched doc's own description of what falls between
+    form.start/form.end was somewhat ambiguous (it describes the enclosed
+    part as "options, and the product price and quantity" but separately
+    mentions a second section for "price and availability" too) — kept
+    options+price+quantity+CTA together inside the hooks as the more
+    defensible reading; verify against a live theme if precision matters.
+#}
+
+{% hook 'product:single.form.start' %}
+
+<salla-product-options
+    product-id="{{ product.id }}"
+    class="nova-product-options"
+></salla-product-options>
+
+<div class="nova-product-single__price">
+    {% include 'partials/product/price.twig' %}
+</div>
+
+<div class="nova-product-single__cart-row">
+    <salla-quantity-input class="nova-quantity-input"></salla-quantity-input>
+
+    <salla-add-product-button
+        product-id="{{ product.id }}"
+        product-status="{{ product.status | default('sale') }}"
+        product-type="{{ product.type | default('product') }}"
+        class="nova-product-single__cta"
+    ></salla-add-product-button>
+</div>
+
+{% hook 'product:single.form.end' %}

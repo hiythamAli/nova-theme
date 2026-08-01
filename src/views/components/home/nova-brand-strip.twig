@@ -1,0 +1,19 @@
+{#
+    NOVA Brand Strip — src/views/components/home/nova-brand-strip.twig
+    Custom Theme Component (twilight.json → components → nova-brand-strip).
+#}
+
+<section class="nova-section nova-brand-strip">
+    <div class="nova-container">
+        <div class="nova-brand-strip__track">
+            {% for brand in component.brands %}
+                <img
+                    src="{{ brand.logo }}"
+                    alt=""
+                    loading="lazy"
+                    class="nova-brand-strip__logo"
+                >
+            {% endfor %}
+        </div>
+    </div>
+</section>

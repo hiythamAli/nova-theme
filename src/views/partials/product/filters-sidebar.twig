@@ -1,0 +1,100 @@
+{#
+    NOVA Filters Sidebar — src/views/partials/product/filters-sidebar.twig
+    "filters" is a confirmed twilight.json feature slug, but the exact
+    `filters` variable shape it injects wasn't confirmed in the docs
+    fetched — this builds NOVA's own filter UI using an inferred `filters`
+    object (filters.brands, filters.colors, filters.sizes,
+    filters.price_min/max) so the visual design stays consistent with the
+    rest of the theme. Verify field names before shipping.
+#}
+
+<div class="nova-filters" data-nova-accordion data-nova-accordion-single>
+
+    {% if filters.brands is defined and filters.brands | length > 0 %}
+        <div class="nova-accordion__item">
+            <button type="button" class="nova-accordion__trigger" aria-expanded="true">
+                {{ trans('category.brand') }}
+                <i class="sicon-arrow-down nova-accordion__icon" aria-hidden="true"></i>
+            </button>
+            <div class="nova-accordion__panel">
+                <div class="nova-accordion__panel-inner">
+                    {% for brand in filters.brands %}
+                        <label class="nova-filters__checkbox">
+                            <input type="checkbox" class="nova-checkbox" name="brand[]" value="{{ brand.id }}">
+                            <span>{{ brand.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if filters.colors is defined and filters.colors | length > 0 %}
+        <div class="nova-accordion__item">
+            <button type="button" class="nova-accordion__trigger" aria-expanded="false">
+                {{ trans('product.color') }}
+                <i class="sicon-arrow-down nova-accordion__icon" aria-hidden="true"></i>
+            </button>
+            <div class="nova-accordion__panel">
+                <div class="nova-accordion__panel-inner">
+                    <div class="nova-swatches" role="group" aria-label="{{ trans('product.color') }}">
+                        {% for color in filters.colors %}
+                            <label class="nova-swatch">
+                                <input type="checkbox" name="color[]" value="{{ color.id }}" class="nova-swatch__input">
+                                <span class="nova-visually-hidden">{{ color.name }}</span>
+                                <span class="nova-swatch__color" style="background-color: {{ color.hex }}" aria-hidden="true"></span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if filters.sizes is defined and filters.sizes | length > 0 %}
+        <div class="nova-accordion__item">
+            <button type="button" class="nova-accordion__trigger" aria-expanded="false">
+                {{ trans('category.size') }}
+                <i class="sicon-arrow-down nova-accordion__icon" aria-hidden="true"></i>
+            </button>
+            <div class="nova-accordion__panel">
+                <div class="nova-accordion__panel-inner nova-filters__sizes">
+                    {% for size in filters.sizes %}
+                        <label class="nova-filters__size-pill">
+                            <input type="checkbox" name="size[]" value="{{ size.id }}" class="nova-visually-hidden">
+                            <span>{{ size.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="nova-accordion__item">
+        <button type="button" class="nova-accordion__trigger" aria-expanded="false">
+            {{ trans('category.price') }}
+            <i class="sicon-arrow-down nova-accordion__icon" aria-hidden="true"></i>
+        </button>
+        <div class="nova-accordion__panel">
+            <div class="nova-accordion__panel-inner nova-filters__price">
+                <label class="nova-field">
+                    <span class="nova-field__label">{{ trans('category.min') }}</span>
+                    <input type="number" name="price_min" class="nova-input" min="0" value="{{ filters.price_min | default(0) }}">
+                </label>
+                <label class="nova-field">
+                    <span class="nova-field__label">{{ trans('category.max') }}</span>
+                    <input type="number" name="price_max" class="nova-input" min="0" value="{{ filters.price_max | default('') }}">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <label class="nova-filters__checkbox nova-filters__availability">
+        <input type="checkbox" class="nova-checkbox" name="in_stock" value="1">
+        <span>{{ trans('category.in_stock_only') }}</span>
+    </label>
+
+    <button type="submit" class="nova-btn nova-btn--primary nova-btn--full">
+        {{ trans('category.apply_filters') }}
+    </button>
+</div>

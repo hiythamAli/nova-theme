@@ -1,0 +1,19 @@
+{#
+    NOVA Social Links — src/views/components/footer/social.twig
+    Confirmed (docs.salla.dev/422602m0): receives an array of `links`,
+    looped (Instagram, Twitter/X, Snapchat, TikTok, YouTube, Facebook,
+    Pinterest). `link.icon`/`link.url` field names are inferred, not
+    confirmed — verify before shipping.
+#}
+
+<ul class="nova-footer__social">
+    {% for social in links %}
+        <li>
+            <a href="{{ social.url | default('#') }}" class="nova-icon-btn" aria-label="{{ social.name | default('social link') }}">
+                {% if social.icon %}
+                    <i class="{{ social.icon }}" aria-hidden="true"></i>
+                {% endif %}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

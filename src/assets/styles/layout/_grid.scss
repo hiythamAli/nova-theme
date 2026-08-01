@@ -1,0 +1,58 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA GRID
+// 12 columns, 24px gap (09-Design-Tokens.md). CSS Grid is direction-agnostic
+// by default — `grid-auto-flow` and column order follow `dir` automatically,
+// so no RTL-specific overrides are needed here.
+// =============================================================================
+
+.nova-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--nova-grid-columns), minmax(0, 1fr));
+  gap: var(--nova-grid-gap);
+}
+
+@for $i from 1 through 12 {
+  .nova-col-#{$i} {
+    grid-column: span $i;
+  }
+}
+
+// Responsive column helpers — mobile defaults to full width, opens up at
+// wider breakpoints. Usage: class="nova-col-12 nova-col-tablet-6 nova-col-desktop-4"
+@include m.respond-to('tablet') {
+  @for $i from 1 through 12 {
+    .nova-col-tablet-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+@include m.respond-to('desktop') {
+  @for $i from 1 through 12 {
+    .nova-col-desktop-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+// Ultra-wide monitors (1440px+) — denser grids so large screens don't
+// just show more empty margin. Previously declared as a design token
+// (09-Design-Tokens.md) but never actually consumed anywhere.
+@include m.respond-to('wide') {
+  @for $i from 1 through 12 {
+    .nova-col-wide-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+.nova-grid--gap-sm {
+  gap: f.spacing('12');
+}
+
+.nova-grid--gap-lg {
+  gap: f.spacing('32');
+}

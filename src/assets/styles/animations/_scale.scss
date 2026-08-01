@@ -1,0 +1,39 @@
+@use '../abstracts/mixins' as m;
+
+// Scale — modals, quick view panels.
+@keyframes nova-scale-in {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.nova-animate-scale {
+  animation: nova-scale-in var(--nova-duration-fast) ease;
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}
+
+// Zoom — product gallery image zoom on hover.
+@keyframes nova-zoom-in {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.nova-animate-zoom:hover {
+  animation: nova-zoom-in var(--nova-duration-slow) ease forwards;
+
+  @include m.reduced-motion {
+    animation: none;
+  }
+}

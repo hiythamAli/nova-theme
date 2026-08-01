@@ -1,0 +1,21 @@
+{#
+    NOVA Product Card (full image) — src/views/partials/product/card-full-image.twig
+    Image-dominant variant with overlaid gradient + text, for editorial
+    homepage sections where visual impact matters more than density.
+#}
+
+<article class="nova-product-card-full">
+    <a href="{{ product.url | default('#') }}" class="nova-product-card-full__media">
+        <img
+            src="{{ product.image.url | default('') }}"
+            alt="{{ product.name | default('') }}"
+            loading="lazy"
+            width="600"
+            height="800"
+        >
+        <div class="nova-product-card-full__overlay">
+            <span class="nova-product-card-full__name">{{ product.name }}</span>
+            {% include 'partials/product/price.twig' %}
+        </div>
+    </a>
+</article>

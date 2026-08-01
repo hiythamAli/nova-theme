@@ -1,0 +1,62 @@
+/**
+ * NOVA Theme — Main Stylesheet Entry
+ * Compiled to dist/main.css and loaded in src/views/layouts/master.twig.
+ * Follows the 7-1 pattern mapped to 07-Architecture.md's /styles folder.
+ */
+
+// 1. Abstracts — tokens, variables, mixins, functions (no CSS output)
+@use 'abstracts/tokens';
+@use 'abstracts/functions';
+@use 'abstracts/mixins';
+
+// 2. Themes — color custom properties. Loaded before base/root so all
+// var(--nova-color-*) references resolve for anything after it.
+@use 'themes/light';
+
+// 3. Base — CSS custom properties, resets, typography, global element styles
+@use 'base/root';
+@use 'base/reset';
+@use 'base/typography';
+
+// 4. Layout — grid, containers, header/footer skeleton
+@use 'layout/grid';
+@use 'layout/container';
+
+// 5. Components — buttons, cards, badges, etc. (added phase by phase)
+@use 'components/header';
+@use 'components/breadcrumbs';
+@use 'components/mega-menu';
+@use 'components/footer';
+@use 'components/floating-buttons';
+@use 'components/button';
+@use 'components/input';
+@use 'components/card';
+@use 'components/badge';
+@use 'components/avatar-rating';
+@use 'components/loader-skeleton';
+@use 'components/disclosure';
+@use 'components/overlay';
+@use 'components/toast';
+@use 'components/tooltip';
+@use 'components/pagination';
+@use 'components/product-card';
+@use 'components/category-brand-card';
+@use 'components/hero';
+@use 'components/home-sections';
+@use 'components/category-banner';
+@use 'components/listing';
+@use 'components/gallery';
+@use 'components/product-single';
+@use 'components/cart';
+@use 'components/single-page';
+@use 'components/misc-pages';
+
+// 6. Pages — page-specific overrides
+// @use 'pages/home';
+
+// 7. Animations — keyframes and transition utilities
+@use 'animations/fade';
+@use 'animations/slide';
+@use 'animations/scale';
+@use 'animations/reveal';
+@use 'animations/spin';

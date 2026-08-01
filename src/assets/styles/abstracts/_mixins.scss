@@ -1,0 +1,121 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'tokens' as t;
+@use 'functions' as f;
+
+// =============================================================================
+// NOVA MIXINS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Responsive — mobile-first, min-width only (per UX Rules: "جميع الصفحات
+// Mobile First"). Never write a max-width override; add the next breakpoint up.
+// Usage: @include respond-to('tablet') { ... }
+// -----------------------------------------------------------------------------
+@mixin respond-to($breakpoint) {
+  @if not map.has-key(t.$nova-breakpoints, $breakpoint) {
+    @error "NOVA: unknown breakpoint `#{$breakpoint}`.";
+  }
+  @media (min-width: f.breakpoint($breakpoint)) {
+    @content;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// RTL / LTR
+// NOVA is RTL-native (Arabic default) with full LTR support. Prefer CSS
+// logical properties (margin-inline-start, inset-inline-end, text-align:
+// start) everywhere — they flip automatically with `dir` and need no
+// override. These mixins exist only for the rare case a logical property
+// isn't available for a given property.
+// -----------------------------------------------------------------------------
+@mixin rtl-only {
+  [dir='rtl'] & {
+    @content;
+  }
+}
+
+@mixin ltr-only {
+  [dir='ltr'] & {
+    @content;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Accessibility
+// -----------------------------------------------------------------------------
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: f.border-width('2') solid f.color('accent-text');
+    outline-offset: 2px;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Layout helpers
+// -----------------------------------------------------------------------------
+@mixin container($size: '2xl') {
+  width: 100%;
+  max-width: f.container($size);
+  margin-inline: auto;
+  padding-inline: f.spacing('16');
+
+  @include respond-to('tablet') {
+    padding-inline: f.spacing('24');
+  }
+
+  // Ultra-wide monitors get a wider ceiling instead of an ever-growing
+  // empty margin — only applies to the default '2xl' container size, so
+  // deliberately-narrower containers (sm/md/lg/xl) are unaffected.
+  @if $size == '2xl' {
+    @include respond-to('wide') {
+      max-width: f.container('3xl');
+    }
+  }
+}
+
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Motion — always paired with @include reduced-motion for the opt-out.
+// -----------------------------------------------------------------------------
+@mixin transition($properties...) {
+  $list: ();
+  @each $property in $properties {
+    $list: list.append($list, $property f.duration('normal') ease, comma);
+  }
+  transition: $list;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}

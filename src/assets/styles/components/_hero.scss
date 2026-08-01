@@ -1,0 +1,134 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA HERO
+// =============================================================================
+
+.nova-hero {
+  position: relative;
+  height: f.hero-height('mobile');
+  overflow: hidden;
+
+  @include m.respond-to('tablet') {
+    height: f.hero-height('tablet');
+  }
+
+  @include m.respond-to('desktop') {
+    height: f.hero-height('desktop');
+  }
+}
+
+.nova-hero__slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.nova-hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+
+  @include m.transition(opacity);
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.nova-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nova-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: f.spacing('16');
+  padding-inline: f.spacing('24');
+  max-width: 640px;
+
+  @include m.respond-to('tablet') {
+    padding-inline-start: f.spacing('64');
+  }
+}
+
+.nova-hero__title {
+  font-size: var(--nova-text-3xl);
+  color: f.color('text-white');
+
+  @include m.respond-to('tablet') {
+    font-size: var(--nova-text-5xl);
+  }
+}
+
+.nova-hero__subtitle {
+  font-size: var(--nova-text-base);
+  color: f.color('text-white');
+}
+
+.nova-hero__nav {
+  position: absolute;
+  inset-inline: f.spacing('16');
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.nova-hero__arrow {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('3xl');
+  height: f.icon-size('3xl');
+  border-radius: f.radius('round');
+  background: rgba(255, 255, 255, f.opacity('80'));
+  color: f.color('primary');
+
+  &:hover {
+    background: f.color('surface');
+  }
+}
+
+.nova-hero__dots {
+  position: absolute;
+  inset-block-end: f.spacing('24');
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+  gap: f.spacing('8');
+}
+
+.nova-hero__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: f.radius('round');
+  background: rgba(255, 255, 255, f.opacity('40'));
+
+  @include m.transition(background-color, transform);
+
+  &.is-active {
+    background: f.color('surface');
+    transform: scale(1.3);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Shared section title used across home sections
+// -----------------------------------------------------------------------------
+.nova-section__title {
+  margin-block-end: f.spacing('32');
+  font-size: var(--nova-text-2xl);
+  text-align: center;
+}

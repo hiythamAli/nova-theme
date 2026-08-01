@@ -1,0 +1,100 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA TYPOGRAPHY
+// =============================================================================
+
+body {
+  font-family: var(--nova-font-primary);
+  font-size: var(--nova-text-base);
+  font-weight: var(--nova-weight-regular);
+  color: var(--nova-color-text-primary);
+  line-height: f.line-height('3');
+}
+
+// Letter-spacing tokens (09-Design-Tokens.md) are a Latin-typography
+// convention — tracking breaks Arabic letter joining. Apply spacing only to
+// Latin/LTR content; Arabic (the RTL default) always renders at 0 tracking.
+[dir='ltr'],
+:lang(en) {
+  letter-spacing: f.letter-spacing('normal');
+}
+
+[dir='rtl'],
+:lang(ar) {
+  letter-spacing: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--nova-font-heading, var(--nova-font-primary));
+  font-weight: var(--nova-weight-semibold);
+  line-height: f.line-height('1');
+}
+
+h1 {
+  font-size: var(--nova-text-4xl);
+
+  @include m.respond-to('tablet') {
+    font-size: var(--nova-text-5xl);
+  }
+}
+
+h2 {
+  font-size: var(--nova-text-3xl);
+
+  @include m.respond-to('tablet') {
+    font-size: var(--nova-text-4xl);
+  }
+}
+
+h3 {
+  font-size: var(--nova-text-2xl);
+}
+
+h4 {
+  font-size: var(--nova-text-xl);
+}
+
+h5 {
+  font-size: var(--nova-text-lg);
+}
+
+h6 {
+  font-size: var(--nova-text-md);
+  font-weight: var(--nova-weight-medium);
+}
+
+p {
+  font-size: var(--nova-text-base);
+  line-height: f.line-height('4');
+  color: var(--nova-color-text-secondary);
+}
+
+small,
+.nova-text-sm {
+  font-size: var(--nova-text-sm);
+}
+
+.nova-text-xs {
+  font-size: var(--nova-text-xs);
+}
+
+// Utility for the secondary (Inter) face — Latin content only, e.g. prices,
+// SKUs, and other numeral-heavy strings where Inter reads more precisely.
+.nova-font-secondary {
+  font-family: var(--nova-font-secondary);
+}
+
+.nova-truncate {
+  @include m.truncate(1);
+}
+
+.nova-truncate-2 {
+  @include m.truncate(2);
+}

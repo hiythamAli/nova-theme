@@ -1,0 +1,38 @@
+{#
+    NOVA Comments — src/views/components/comments.twig
+    Confirmed exact path (github.com/SallaApp/theme-raed directory
+    listing: src/views/components/comments.twig — top-level, not nested
+    under product/ as an earlier guess assumed).
+
+    VERIFICATION NEEDED: the exact `comments` variable shape (array of
+    review objects) wasn't captured in the fetched docs — inferred fields
+    below (`.author`, `.rating`, `.body`, `.created_at`) by convention,
+    not confirmed. A dedicated review-submission web component may exist
+    (not confirmed) — this renders a plain list plus a basic form as the
+    closest supported fallback.
+#}
+
+<div class="nova-comments">
+    {% if comments is defined and comments | length > 0 %}
+        <ul class="nova-comments__list">
+            {% for comment in comments %}
+                <li class="nova-comments__item">
+                    <div class="nova-comments__header">
+                        <span class="nova-avatar nova-avatar--sm">{{ comment.author | first | upper }}</span>
+                        <div>
+                            <span class="nova-comments__author">{{ comment.author }}</span>
+                            <div class="nova-rating">
+                                <span class="nova-rating__stars">
+                                    <span class="nova-rating__stars-fill" style="width: {{ (comment.rating / 5 * 100) }}%"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="nova-comments__body">{{ comment.body }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="nova-comments__empty">{{ trans('product.no_reviews') }}</p>
+    {% endif %}
+</div>

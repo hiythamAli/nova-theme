@@ -1,0 +1,48 @@
+@use '../abstracts/functions' as f;
+
+// =============================================================================
+// NOVA BADGE
+// =============================================================================
+
+.nova-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding-inline: f.spacing('8');
+  border-radius: f.radius('xs');
+  font-size: var(--nova-text-xs);
+  font-weight: var(--nova-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nova-badge--new {
+  background: f.color('info');
+  color: f.color('text-white');
+}
+
+.nova-badge--sale {
+  background: f.color('danger');
+  color: f.color('text-white');
+}
+
+.nova-badge--out-of-stock {
+  background: f.color('disabled');
+  color: f.color('text-primary');
+}
+
+.nova-badge--success {
+  background: f.color('success');
+  color: f.color('text-white');
+}
+
+.nova-badge--accent {
+  background: f.color('accent');
+  color: f.color('text-primary');
+}
+
+.nova-badge--outline {
+  background: transparent;
+  border: f.border-width('1') solid f.color('border');
+  color: f.color('text-secondary');
+}

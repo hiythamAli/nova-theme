@@ -1,0 +1,116 @@
+{
+  "lang": {
+    "locale": "ar",
+    "dir": "rtl"
+  },
+  "common": {
+    "skip_to_content": "تخطَّ إلى المحتوى",
+    "open_menu": "افتح القائمة",
+    "search": "بحث",
+    "wishlist": "المفضلة",
+    "account": "الحساب",
+    "breadcrumb": "مسار التصفح",
+    "contact_us": "تواصل معنا",
+    "get_the_app": "حمّل التطبيق",
+    "all_rights_reserved": "جميع الحقوق محفوظة",
+    "dismiss": "إغلاق",
+    "close": "إغلاق",
+    "chat_on_whatsapp": "تواصل عبر واتساب",
+    "scroll_to_top": "العودة للأعلى",
+    "products": "منتج",
+    "added_to_wishlist": "أُضيف إلى المفضلة",
+    "wishlist_error": "تعذّر تحديث المفضلة",
+    "compare_limit_reached": "يمكنك مقارنة 4 منتجات كحد أقصى",
+    "shop_now": "تسوّق الآن",
+    "previous": "السابق",
+    "next": "التالي",
+    "slides": "الشرائح",
+    "go_to_slide": "الانتقال إلى الشريحة",
+    "follow_us_on_instagram": "تابعنا على إنستغرام"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "categories": "الأقسام",
+    "brands": "العلامات التجارية",
+    "offers": "العروض",
+    "about": "من نحن",
+    "contact": "تواصل معنا"
+  },
+  "category": {
+    "filters": "الفلاتر",
+    "grid_view": "عرض شبكي",
+    "list_view": "عرض قائمة",
+    "sort_by": "ترتيب حسب",
+    "brand": "العلامة التجارية",
+    "size": "المقاس",
+    "price": "السعر",
+    "min": "الحد الأدنى",
+    "max": "الحد الأقصى",
+    "in_stock_only": "المتوفر فقط",
+    "apply_filters": "تطبيق الفلاتر",
+    "no_products": "لا توجد منتجات"
+  },
+  "product": {
+    "add_to_cart": "أضف إلى السلة",
+    "buy_now": "اشترِ الآن",
+    "add_to_wishlist": "أضف إلى المفضلة",
+    "out_of_stock": "غير متوفر",
+    "quick_view": "عرض سريع",
+    "sale": "تخفيض",
+    "new": "جديد",
+    "color": "اللون",
+    "compare": "مقارنة",
+    "description": "الوصف",
+    "specifications": "المواصفات",
+    "reviews": "التقييمات",
+    "related_products": "منتجات ذات صلة",
+    "view_image": "عرض الصورة",
+    "wishlist_title": "المفضلة",
+    "wishlist_empty": "قائمة المفضلة فارغة",
+    "no_reviews": "لا توجد تقييمات بعد",
+    "trust_shipping": "شحن سريع",
+    "trust_returns": "إرجاع سهل",
+    "trust_secure": "دفع آمن"
+  },
+  "order": {
+    "thank_you_title": "شكرًا لك على طلبك!",
+    "reference": "رقم الطلب",
+    "thank_you_message": "تم استلام طلبك وسيتم التواصل معك قريبًا.",
+    "view_orders": "عرض طلباتي",
+    "my_orders": "طلباتي",
+    "no_orders": "لا توجد طلبات بعد"
+  },
+  "loyalty": {
+    "title": "برنامج الولاء"
+  },
+  "blog": {
+    "title": "المدونة",
+    "no_articles": "لا توجد مقالات بعد"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "empty": "لا توجد إشعارات"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "mobile": "رقم الجوال",
+    "save": "حفظ"
+  },
+  "brand": {
+    "all_brands": "جميع العلامات التجارية"
+  },
+  "cart": {
+    "title": "سلة المشتريات",
+    "empty": "سلتك فارغة",
+    "checkout": "إتمام الشراء",
+    "remove_item": "إزالة من السلة"
+  },
+  "newsletter": {
+    "title": "اشترك في نشرتنا البريدية",
+    "placeholder": "بريدك الإلكتروني",
+    "submit": "اشتراك",
+    "subscribed": "شكرًا لاشتراكك!"
+  }
+}

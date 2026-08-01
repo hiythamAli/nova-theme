@@ -1,0 +1,114 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA HOME SECTIONS — Brand Strip, Categories, Instagram, Newsletter
+// =============================================================================
+
+.nova-brand-strip__track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: f.spacing('48');
+}
+
+.nova-brand-strip__logo {
+  max-height: 32px;
+  width: auto;
+  filter: grayscale(1);
+  opacity: f.opacity('60');
+
+  @include m.transition(filter, opacity);
+
+  &:hover {
+    filter: grayscale(0);
+    opacity: f.opacity('100');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Categories
+// -----------------------------------------------------------------------------
+.nova-categories__grid {
+  row-gap: f.spacing('32');
+}
+
+// -----------------------------------------------------------------------------
+// Instagram
+// -----------------------------------------------------------------------------
+.nova-instagram__grid {
+  row-gap: f.spacing('4');
+}
+
+.nova-instagram__post {
+  position: relative;
+  display: block;
+  aspect-ratio: f.card-ratio('square');
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    @include m.transition(transform);
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.nova-instagram__icon {
+  position: absolute;
+  inset-block-end: f.spacing('12');
+  inset-inline-end: f.spacing('12');
+  color: f.color('text-white');
+  font-size: f.icon-size('lg');
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, f.opacity('40')));
+}
+
+.nova-instagram__follow {
+  display: block;
+  text-align: center;
+  margin-block-start: f.spacing('24');
+  font-weight: var(--nova-weight-semibold);
+  color: f.color('accent-text');
+}
+
+// -----------------------------------------------------------------------------
+// Newsletter
+// -----------------------------------------------------------------------------
+.nova-newsletter {
+  background: f.color('secondary');
+}
+
+.nova-newsletter__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: f.spacing('16');
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.nova-newsletter__title {
+  font-size: var(--nova-text-2xl);
+}
+
+.nova-newsletter__description {
+  color: f.color('text-secondary');
+}
+
+.nova-newsletter__form {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+  width: 100%;
+
+  @include m.respond-to('mobile-lg') {
+    flex-direction: row;
+  }
+}

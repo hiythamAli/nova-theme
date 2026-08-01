@@ -1,0 +1,49 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA FLOATING BUTTONS
+// inset-inline-end so these sit correctly in the closing corner for both
+// RTL (left) and LTR (right) without an override rule.
+// =============================================================================
+
+.nova-floating-buttons {
+  position: fixed;
+  inset-block-end: f.spacing('24');
+  inset-inline-end: f.spacing('24');
+  z-index: var(--nova-z-popup);
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+}
+
+.nova-floating-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.icon-size('3xl');
+  height: f.icon-size('3xl');
+  border-radius: f.radius('round');
+  box-shadow: f.shadow('medium');
+  color: f.color('text-white');
+
+  @include m.transition(transform, box-shadow);
+  @include m.focus-ring;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: f.shadow('large');
+  }
+}
+
+.nova-floating-btn--whatsapp {
+  background: #25d366; // Brand-mandated WhatsApp green — not a NOVA token, this is a third-party trademark color.
+}
+
+.nova-floating-btn--scroll-top {
+  background: f.color('primary');
+
+  &[hidden] {
+    display: none;
+  }
+}

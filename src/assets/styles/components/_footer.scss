@@ -1,0 +1,119 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA FOOTER
+// =============================================================================
+
+.nova-footer {
+  background: f.color('primary');
+  color: f.color('text-white');
+  padding-block-start: f.spacing('64');
+}
+
+.nova-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: f.spacing('40');
+  padding-block-end: f.spacing('48');
+
+  @include m.respond-to('tablet') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond-to('laptop') {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+.nova-footer__col--brand {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('16');
+}
+
+.nova-footer__logo {
+  filter: brightness(0) invert(1);
+}
+
+.nova-footer__description {
+  font-size: var(--nova-text-sm);
+  color: f.color('text-light');
+  max-width: 32ch;
+}
+
+.nova-footer__heading {
+  margin-block-end: f.spacing('16');
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: f.letter-spacing('wide');
+}
+
+[dir='rtl'] .nova-footer__heading {
+  letter-spacing: normal; // Arabic exception — see base/_typography.scss
+}
+
+.nova-footer__links,
+.nova-footer__contacts,
+.nova-footer__apps {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('12');
+  list-style: none;
+  font-size: var(--nova-text-sm);
+}
+
+.nova-footer__links a,
+.nova-footer__contacts a,
+.nova-footer__app-link {
+  color: f.color('text-light');
+
+  @include m.transition(color);
+
+  &:hover {
+    color: f.color('text-white');
+  }
+}
+
+.nova-footer__contact-item,
+.nova-footer__app-link {
+  display: inline-flex;
+  align-items: center;
+  gap: f.spacing('8');
+}
+
+.nova-footer__social {
+  display: flex;
+  gap: f.spacing('8');
+  list-style: none;
+}
+
+.nova-footer__bottom {
+  border-block-start: f.border-width('1') solid rgba(255, 255, 255, f.opacity('10'));
+  padding-block: f.spacing('24');
+}
+
+.nova-footer__bottom-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: f.spacing('16');
+  font-size: var(--nova-text-xs);
+  color: f.color('text-light');
+
+  @include m.respond-to('tablet') {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.nova-footer__payments {
+  display: flex;
+  gap: f.spacing('12');
+  list-style: none;
+}
+
+.nova-footer__payment-item img {
+  border-radius: f.radius('xs');
+}

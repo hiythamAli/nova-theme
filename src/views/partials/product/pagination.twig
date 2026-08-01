@@ -1,0 +1,24 @@
+{#
+    NOVA Pagination — src/views/partials/product/pagination.twig
+    `pagination.links`/`.current_page` inferred (Laravel-style paginator
+    is common across Salla's ecosystem but wasn't explicitly confirmed in
+    the docs fetched) — verify before shipping.
+#}
+
+{% if pagination.links is defined and pagination.links | length > 1 %}
+    <nav class="nova-pagination" aria-label="{{ trans('common.breadcrumb') }}">
+        {% for link in pagination.links %}
+            {% if link.url %}
+                <a
+                    href="{{ link.url }}"
+                    class="nova-pagination__item"
+                    {% if link.active %}aria-current="page"{% endif %}
+                >
+                    {{ link.label }}
+                </a>
+            {% else %}
+                <span class="nova-pagination__ellipsis">{{ link.label }}</span>
+            {% endif %}
+        {% endfor %}
+    </nav>
+{% endif %}

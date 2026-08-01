@@ -1,0 +1,32 @@
+{#
+    NOVA Floating Buttons — src/views/components/common/floating-buttons.twig
+    NOVA-custom, not a Salla-provided component (01-Project-Vision.md →
+    Core Features: Floating Buttons, WhatsApp Button, Scroll To Top).
+    `store.whatsapp` is inferred, not confirmed — verify before shipping.
+#}
+
+<div class="nova-floating-buttons">
+    {% if theme.settings.get('floating_whatsapp') and store.whatsapp %}
+        <a
+            href="https://wa.me/{{ store.whatsapp }}"
+            class="nova-floating-btn nova-floating-btn--whatsapp"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{ trans('common.chat_on_whatsapp') }}"
+        >
+            <i class="sicon-whatsapp" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+
+    {% if theme.settings.get('floating_scroll_top') %}
+        <button
+            type="button"
+            class="nova-floating-btn nova-floating-btn--scroll-top"
+            data-nova-scroll-top
+            aria-label="{{ trans('common.scroll_to_top') }}"
+            hidden
+        >
+            <i class="sicon-arrow-up" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+</div>

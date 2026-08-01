@@ -1,0 +1,36 @@
+{#
+    NOVA Newsletter — src/views/components/home/nova-newsletter.twig
+    Custom Theme Component.
+    VERIFICATION NEEDED: the actual newsletter-subscribe endpoint/method
+    isn't confirmed (not covered by any doc consulted so far — likely a
+    Marketing/Store API, not part of the Cart/Wishlist modules already
+    researched). Form submits to a placeholder handled client-side for now;
+    wire to the real endpoint once confirmed.
+#}
+
+<section class="nova-section nova-newsletter">
+    <div class="nova-container nova-newsletter__inner">
+        <h2 class="nova-newsletter__title">
+            {{ component.title | default(trans('newsletter.title')) }}
+        </h2>
+        {% if component.description %}
+            <p class="nova-newsletter__description">{{ component.description }}</p>
+        {% endif %}
+
+        <form class="nova-newsletter__form" data-nova-newsletter-form novalidate>
+            <label class="nova-field" style="flex: 1">
+                <span class="nova-field__label nova-visually-hidden">{{ trans('newsletter.placeholder') }}</span>
+                <input
+                    type="email"
+                    name="email"
+                    class="nova-input"
+                    placeholder="{{ trans('newsletter.placeholder') }}"
+                    required
+                >
+            </label>
+            <button type="submit" class="nova-btn nova-btn--accent">
+                {{ trans('newsletter.submit') }}
+            </button>
+        </form>
+    </div>
+</section>

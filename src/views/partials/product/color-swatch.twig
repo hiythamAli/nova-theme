@@ -1,0 +1,26 @@
+{#
+    NOVA Color Swatch — src/views/partials/product/color-swatch.twig
+    Radio inputs (not divs with onclick) so selection is keyboard-operable
+    and screen-reader-announced for free, no JS required for the widget
+    itself. Field names (variant.color_hex/color_name/value) are inferred.
+#}
+
+<div class="nova-swatches" role="radiogroup" aria-label="{{ trans('product.color') }}">
+    {% for variant in variants %}
+        <label class="nova-swatch">
+            <input
+                type="radio"
+                name="color-{{ product.id }}"
+                value="{{ variant.value }}"
+                class="nova-swatch__input"
+                {{ loop.first ? 'checked' : '' }}
+            >
+            <span class="nova-visually-hidden">{{ variant.color_name }}</span>
+            <span
+                class="nova-swatch__color"
+                style="background-color: {{ variant.color_hex | default('#cccccc') }}"
+                aria-hidden="true"
+            ></span>
+        </label>
+    {% endfor %}
+</div>

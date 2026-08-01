@@ -1,0 +1,131 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA BUTTON
+// Variants: Primary, Secondary, Outline, Ghost, Icon (03-UI-System.md).
+// Pure CSS — no JS required for any variant.
+// =============================================================================
+
+.nova-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: f.spacing('8');
+  height: f.button-height('md');
+  padding-inline: f.spacing('24');
+  border-radius: f.radius('sm');
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-semibold);
+  white-space: nowrap;
+
+  @include m.transition(background-color, color, border-color, transform);
+  @include m.focus-ring;
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: f.opacity('40');
+    pointer-events: none;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
+
+.nova-btn--primary {
+  background: f.color('primary');
+  color: f.color('text-white');
+
+  &:hover {
+    background: f.color('hover');
+  }
+}
+
+.nova-btn--secondary {
+  background: f.color('secondary');
+  color: f.color('text-primary');
+
+  &:hover {
+    background: f.color('border');
+  }
+}
+
+.nova-btn--outline {
+  background: transparent;
+  color: f.color('primary');
+  border: f.border-width('1') solid f.color('primary');
+
+  &:hover {
+    background: f.color('primary');
+    color: f.color('text-white');
+  }
+}
+
+.nova-btn--ghost {
+  background: transparent;
+  color: f.color('text-primary');
+
+  &:hover {
+    background: f.color('secondary');
+  }
+}
+
+.nova-btn--accent {
+  background: f.color('accent');
+  color: f.color(
+    'text-primary'
+  ); // dark text: 8.25:1 vs white text's failing 2.29:1 — see Phase 14 accessibility audit
+
+  &:hover {
+    filter: brightness(0.92);
+  }
+}
+
+// Sizes
+.nova-btn--sm {
+  height: f.button-height('sm');
+  padding-inline: f.spacing('16');
+  font-size: var(--nova-text-xs);
+}
+
+.nova-btn--lg {
+  height: f.button-height('lg');
+  padding-inline: f.spacing('32');
+}
+
+.nova-btn--xl {
+  height: f.button-height('xl');
+  padding-inline: f.spacing('40');
+  font-size: var(--nova-text-md);
+}
+
+// Icon-only button — square, centered icon, no text
+.nova-btn--icon {
+  width: f.button-height('md');
+  padding-inline: 0;
+}
+
+.nova-btn--full {
+  width: 100%;
+}
+
+.nova-btn--loading {
+  color: transparent !important; // Golden Rule exception: state-hiding text, not a design value.
+  pointer-events: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: f.icon-size('sm');
+    height: f.icon-size('sm');
+    border: f.border-width('2') solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: f.radius('round');
+    color: f.color('text-white');
+    animation: nova-spin 0.6s linear infinite;
+  }
+}

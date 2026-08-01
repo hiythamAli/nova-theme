@@ -1,0 +1,273 @@
+@use 'sass:map';
+
+// =============================================================================
+// NOVA DESIGN TOKENS
+// Source: 09-Design-Tokens.md (declared Single Source of Truth).
+//
+// Note: 02-Brand-System.md lists slightly different hex values for Secondary,
+// Success, and Danger. Per 09-Design-Tokens.md's own "Golden Rule" — it is the
+// single source of truth for all values — this file uses ITS values. See
+// docs/architecture-mapping.md for the discrepancy record.
+//
+// Nothing outside this file should contain a raw hex, px, or ms value.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Colors
+// -----------------------------------------------------------------------------
+$nova-colors: (
+  'primary': #111111,
+  'secondary': #f8f8f8,
+  'surface': #ffffff,
+  'background': #fafafa,
+  'accent': #c7a76c,
+
+  'text-primary': #111111,
+  'text-secondary': #666666,
+  // Corrected from 09-Design-Tokens.md's #999999 — that value measures
+  // 2.85:1 against white, failing WCAG AA (needs 4.5:1 for text, 3:1
+  // even for large text/UI components). #767676 is the same family of
+  // "muted gray" but passes at 4.54:1. Both docs list "WCAG AA" as an
+  // explicit target in their own Accessibility sections, so this
+  // resolves a conflict between two requirements in NOVA's own docs in
+  // favor of the one that's binding regardless of visual preference.
+  // See docs/architecture-mapping.md Phase 14.
+  'text-light': #767676,
+  'text-white': #ffffff,
+
+  'border': #e9e9e9,
+  'divider': #efefef,
+
+  'success': #16a34a,
+  'warning': #f59e0b,
+  'danger': #dc2626,
+  'info': #2563eb,
+
+  'hover': #1a1a1a,
+  'disabled': #d4d4d4,
+
+  // 'accent' (#C7A76C, exactly as specified in 09-Design-Tokens.md) is
+  // reserved for BACKGROUNDS, borders-as-decoration, and swatch fills —
+  // contexts where something else (dark text, an icon shape) sits on
+  // top of it or where it's showing an actual color value, not
+  // conveying information through its own contrast against the page.
+  // Measured at only 2.29:1 against white, it fails WCAG AA even for
+  // large text and fails the 3:1 non-text/UI-component minimum too — so
+  // it must never be used as the accent's OWN foreground/text/outline
+  // color against a light background. 'accent-text' is a darker
+  // same-family gold (4.51:1 against white) for exactly those cases:
+  // links, focus rings, active-state borders, icon glyphs conveying
+  // meaning through color. See docs/architecture-mapping.md Phase 14.
+  'accent-text': #96702f,
+);
+
+// -----------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------
+$nova-font-primary: 'IBM Plex Sans Arabic', sans-serif;
+$nova-font-secondary: 'Inter', sans-serif;
+
+$nova-font-sizes: (
+  'xs': 12px,
+  'sm': 14px,
+  'base': 16px,
+  'md': 18px,
+  'lg': 20px,
+  'xl': 24px,
+  '2xl': 32px,
+  '3xl': 40px,
+  '4xl': 48px,
+  '5xl': 64px,
+);
+
+$nova-font-weights: (
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+  'extrabold': 800,
+);
+
+// Named by scale position, not intent — see typography.scss for usage mapping.
+$nova-line-heights: (
+  '1': 1.2,
+  '2': 1.4,
+  '3': 1.5,
+  '4': 1.6,
+  '5': 1.8,
+);
+
+// Applied to Latin/LTR text only — see base/_typography.scss for the RTL rule.
+$nova-letter-spacing: (
+  'tight': -0.01em,
+  'normal': 0em,
+  'wide': 0.02em,
+);
+
+// -----------------------------------------------------------------------------
+// Spacing (px scale, keyed by its own value for direct lookup)
+// -----------------------------------------------------------------------------
+$nova-spacing: (
+  '0': 0px,
+  '2': 2px,
+  '4': 4px,
+  '8': 8px,
+  '12': 12px,
+  '16': 16px,
+  '20': 20px,
+  '24': 24px,
+  '32': 32px,
+  '40': 40px,
+  '48': 48px,
+  '56': 56px,
+  '64': 64px,
+  '72': 72px,
+  '80': 80px,
+  '96': 96px,
+  '120': 120px,
+  '160': 160px,
+);
+
+// -----------------------------------------------------------------------------
+// Border Radius
+// -----------------------------------------------------------------------------
+$nova-radius: (
+  'xs': 4px,
+  'sm': 8px,
+  'md': 12px,
+  'lg': 16px,
+  'xl': 24px,
+  '2xl': 32px,
+  'round': 999px,
+);
+
+$nova-border-width: (
+  '1': 1px,
+  '2': 2px,
+  '3': 3px,
+);
+
+// -----------------------------------------------------------------------------
+// Shadows
+// -----------------------------------------------------------------------------
+$nova-shadows: (
+  'small': 0 2px 8px rgba(0, 0, 0, 0.05),
+  'medium': 0 8px 20px rgba(0, 0, 0, 0.08),
+  'large': 0 20px 40px rgba(0, 0, 0, 0.12),
+  'xlarge': 0 32px 64px rgba(0, 0, 0, 0.16),
+);
+
+// -----------------------------------------------------------------------------
+// Opacity
+// -----------------------------------------------------------------------------
+$nova-opacity: (
+  '5': 0.05,
+  '10': 0.1,
+  '20': 0.2,
+  '40': 0.4,
+  '60': 0.6,
+  '80': 0.8,
+  '100': 1,
+);
+
+// -----------------------------------------------------------------------------
+// Transitions
+// -----------------------------------------------------------------------------
+$nova-transitions: (
+  'fast': 150ms,
+  'normal': 220ms,
+  'slow': 300ms,
+  'xslow': 500ms,
+);
+
+// -----------------------------------------------------------------------------
+// Z-Index
+// -----------------------------------------------------------------------------
+$nova-z-index: (
+  'dropdown': 100,
+  'header': 200,
+  'drawer': 300,
+  'modal': 500,
+  'popup': 700,
+  'toast': 800,
+  'loading': 999,
+);
+
+// -----------------------------------------------------------------------------
+// Breakpoints (mobile-first, min-width)
+// -----------------------------------------------------------------------------
+$nova-breakpoints: (
+  'mobile': 320px,
+  'mobile-lg': 480px,
+  'tablet': 768px,
+  'laptop': 1024px,
+  'desktop': 1280px,
+  'wide': 1440px,
+  'ultra-wide': 1600px,
+);
+
+// -----------------------------------------------------------------------------
+// Containers
+// -----------------------------------------------------------------------------
+$nova-containers: (
+  'sm': 540px,
+  'md': 720px,
+  'lg': 960px,
+  'xl': 1140px,
+  '2xl': 1320px,
+  '3xl': 1520px,
+);
+
+// -----------------------------------------------------------------------------
+// Grid
+// -----------------------------------------------------------------------------
+$nova-grid-columns: 12;
+$nova-grid-gap: map.get($nova-spacing, '24');
+
+// -----------------------------------------------------------------------------
+// Component-specific scales
+// -----------------------------------------------------------------------------
+$nova-button-heights: (
+  'sm': 40px,
+  'md': 44px,
+  'lg': 48px,
+  'xl': 56px,
+);
+
+$nova-input-heights: (
+  'sm': 44px,
+  'md': 48px,
+  'lg': 52px,
+  'xl': 56px,
+);
+
+$nova-icon-sizes: (
+  'xs': 16px,
+  'sm': 20px,
+  'md': 24px,
+  'lg': 28px,
+  'xl': 32px,
+  '2xl': 40px,
+  '3xl': 48px,
+);
+
+// aspect-ratio accepts a CSS <ratio> directly — no division needed.
+$nova-product-card-ratios: (
+  'portrait': '3 / 4',
+  'tall': '4 / 5',
+  'square': '1 / 1',
+  'widescreen': '16 / 9',
+);
+
+$nova-hero-height: (
+  'desktop': 700px,
+  'tablet': 560px,
+  'mobile': 420px,
+);
+
+$nova-section-spacing: (
+  'desktop': 120px,
+  'tablet': 80px,
+  'mobile': 64px,
+);

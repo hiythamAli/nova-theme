@@ -1,0 +1,175 @@
+@use '../abstracts/functions' as f;
+@use '../abstracts/mixins' as m;
+
+// =============================================================================
+// NOVA PRODUCTS LISTING
+// =============================================================================
+
+.nova-listing {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: f.spacing('32');
+  padding-block: f.spacing('32');
+
+  @include m.respond-to('laptop') {
+    grid-template-columns: 260px 1fr;
+  }
+}
+
+.nova-listing__sidebar {
+  display: none;
+
+  @include m.respond-to('laptop') {
+    display: block;
+  }
+}
+
+// Mobile filter drawer reuses the .nova-drawer component from Phase 4;
+// only needs to hide on desktop, where the sidebar is already visible.
+[data-nova-drawer='filters'] {
+  @include m.respond-to('laptop') {
+    display: none;
+  }
+}
+
+.nova-listing__empty {
+  grid-column: 1 / -1;
+  padding-block: f.spacing('64');
+  text-align: center;
+  color: f.color('text-light');
+}
+
+// Wired to theme.settings 'category_products_per_row' — overrides the
+// fixed nova-col-desktop-3 spans from the individual card wrappers at
+// desktop width only; mobile/tablet keep their own responsive defaults.
+@include m.respond-to('desktop') {
+  .nova-listing__grid[data-nova-listing-grid]:not([data-view='list']) {
+    grid-template-columns: repeat(var(--nova-listing-cols, 4), 1fr);
+
+    > * {
+      grid-column: span 1;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Toolbar
+// -----------------------------------------------------------------------------
+.nova-listing-toolbar {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('16');
+  flex-wrap: wrap;
+  padding-block-end: f.spacing('16');
+  border-block-end: f.border-width('1') solid f.color('border');
+  margin-block-end: f.spacing('24');
+}
+
+.nova-listing-toolbar__filter-toggle {
+  @include m.respond-to('laptop') {
+    display: none;
+  }
+}
+
+.nova-listing-toolbar__count {
+  font-size: var(--nova-text-sm);
+  color: f.color('text-secondary');
+}
+
+.nova-listing-toolbar__view {
+  display: none;
+  gap: f.spacing('4');
+  margin-inline-start: auto;
+
+  @include m.respond-to('tablet') {
+    display: flex;
+  }
+}
+
+.nova-listing-toolbar__view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: f.button-height('sm');
+  height: f.button-height('sm');
+  border-radius: f.radius('sm');
+  color: f.color('text-light');
+
+  &.is-active {
+    background: f.color('secondary');
+    color: f.color('text-primary');
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Filters (sidebar + drawer content)
+// -----------------------------------------------------------------------------
+.nova-filters__checkbox {
+  display: flex;
+  align-items: center;
+  gap: f.spacing('8');
+  padding-block: f.spacing('8');
+  font-size: var(--nova-text-sm);
+}
+
+.nova-filters__price {
+  display: flex;
+  gap: f.spacing('12');
+}
+
+.nova-filters__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: f.spacing('8');
+}
+
+.nova-filters__size-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 36px;
+  padding-inline: f.spacing('8');
+  border: f.border-width('1') solid f.color('border');
+  border-radius: f.radius('xs');
+  font-size: var(--nova-text-xs);
+  cursor: pointer;
+
+  @include m.transition(border-color, background-color);
+
+  input:checked + & {
+    border-color: f.color('primary');
+    background: f.color('primary');
+    color: f.color('text-white');
+  }
+}
+
+.nova-filters__availability {
+  padding-block: f.spacing('16');
+  border-block: f.border-width('1') solid f.color('border');
+  margin-block: f.spacing('16');
+}
+
+// -----------------------------------------------------------------------------
+// Grid / List view toggle — [data-nova-listing-grid] switches between a
+// grid layout and a stacked list layout via a data attribute the TS sets.
+// -----------------------------------------------------------------------------
+.nova-listing__grid[data-view='list'] {
+  display: flex;
+  flex-direction: column;
+  gap: f.spacing('16');
+
+  > * {
+    grid-column: unset;
+  }
+
+  .nova-product-card {
+    flex-direction: row;
+  }
+
+  .nova-card__media {
+    width: 160px;
+    flex-shrink: 0;
+    aspect-ratio: f.card-ratio('square');
+  }
+}

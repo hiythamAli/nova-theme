@@ -1,0 +1,36 @@
+{#
+    NOVA Wishlist — src/views/pages/customer/wishlist.twig
+    Confirmed fixed path (docs.salla.dev/422565m0). Confirmed: this page
+    extends layouts.master automatically (headers/footers included
+    automatically — no extra work needed), the User model is accessible
+    automatically, and the page receives a `products` object that is a
+    Paginator (same paginated shape confirmed on the Products Listing
+    page — `.next_page` etc.), representing the customer's saved products.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-section">
+        <h1 class="nova-listing-heading">{{ trans('product.wishlist_title') }}</h1>
+
+        <div class="nova-grid">
+            {% for product in products %}
+                <div class="nova-col-6 nova-col-tablet-4 nova-col-desktop-3 nova-col-wide-2">
+                    {% include 'partials/product/card.twig' %}
+                </div>
+            {% else %}
+                <div class="nova-cart__empty">
+                    <i class="sicon-heart" aria-hidden="true"></i>
+                    <p>{{ trans('product.wishlist_empty') }}</p>
+                    <a href="{{ link('/') }}" class="nova-btn nova-btn--outline">
+                        {{ trans('common.elements.back_home') }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include 'partials/product/pagination.twig' %}
+    </div>
+{% endblock %}

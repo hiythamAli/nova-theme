@@ -1,0 +1,33 @@
+{#
+    NOVA Customer Profile — src/views/pages/customer/profile.twig
+    Confirmed exact path (theme-raed directory listing). Confirmed
+    (docs.salla.dev/422565m0): the User model is accessible automatically
+    on customer pages since it's included in master.twig.
+    VERIFICATION NEEDED: `user.name`/`.email`/`.mobile`/`.avatar` inferred
+    by convention, not confirmed.
+#}
+
+{% extends "layouts.master" %}
+{% set robots_directive = 'noindex, nofollow' %}
+
+{% block content %}
+    <div class="nova-container nova-section nova-profile">
+        <h1 class="nova-listing-heading">{{ trans('profile.title') }}</h1>
+
+        <form class="nova-profile__form">
+            <div class="nova-field">
+                <label class="nova-field__label">{{ trans('profile.name') }}</label>
+                <input type="text" class="nova-input" name="name" value="{{ user.name | default('') }}">
+            </div>
+            <div class="nova-field">
+                <label class="nova-field__label">{{ trans('profile.email') }}</label>
+                <input type="email" class="nova-input" name="email" value="{{ user.email | default('') }}">
+            </div>
+            <div class="nova-field">
+                <label class="nova-field__label">{{ trans('profile.mobile') }}</label>
+                <input type="tel" class="nova-input" name="mobile" value="{{ user.mobile | default('') }}">
+            </div>
+            <button type="submit" class="nova-btn nova-btn--primary">{{ trans('profile.save') }}</button>
+        </form>
+    </div>
+{% endblock %}

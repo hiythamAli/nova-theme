@@ -1,0 +1,21 @@
+{#
+    NOVA Featured Categories — src/views/components/home/nova-categories-grid.twig
+    Custom Theme Component. Reuses the CategoryCard partial from Phase 5.
+#}
+
+<section class="nova-section nova-categories">
+    <div class="nova-container">
+        {% if component.title %}
+            <h2 class="nova-section__title">{{ component.title }}</h2>
+        {% endif %}
+
+        <div class="nova-grid nova-categories__grid">
+            {% for cat in component.categories %}
+                {% set category = { image: cat.image, name: cat.title, url: cat.url } %}
+                <div class="nova-col-6 nova-col-tablet-3 nova-col-desktop-2">
+                    {% include 'partials/category/card.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

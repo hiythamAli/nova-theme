@@ -1,0 +1,41 @@
+{#
+    NOVA Listing Toolbar — src/views/partials/product/toolbar.twig
+    `sort_list` confirmed (docs.salla.dev/422559m0): an array of sorting
+    method objects, loopable. `products.total`/`.count` inferred, flagged.
+#}
+
+<div class="nova-listing-toolbar">
+{% if theme.settings.get('category_sidebar_filters') %}
+    <button type="button" class="nova-btn nova-btn--secondary nova-btn--sm nova-listing-toolbar__filter-toggle" data-nova-drawer-open="filters">
+        <i class="sicon-filter" aria-hidden="true"></i>
+        {{ trans('category.filters') }}
+    </button>
+{% endif %}
+
+    {% if products.total is defined %}
+        <span class="nova-listing-toolbar__count">
+            {{ products.total }} {{ trans('common.products') }}
+        </span>
+    {% endif %}
+
+    <div class="nova-listing-toolbar__view">
+        <button type="button" class="nova-listing-toolbar__view-btn is-active" data-nova-view="grid" aria-label="{{ trans('category.grid_view') }}">
+            <i class="sicon-grid" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="nova-listing-toolbar__view-btn" data-nova-view="list" aria-label="{{ trans('category.list_view') }}">
+            <i class="sicon-list" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="nova-dropdown">
+        <button type="button" class="nova-btn nova-btn--ghost nova-btn--sm nova-dropdown__trigger" data-nova-dropdown-trigger aria-expanded="false">
+            {{ trans('category.sort_by') }}
+            <i class="sicon-arrow-down" aria-hidden="true"></i>
+        </button>
+        <div class="nova-dropdown__panel">
+            {% for sort in sort_list %}
+                <a href="{{ sort.url | default('#') }}" class="nova-dropdown__item">{{ sort.name | default(sort.label) }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
