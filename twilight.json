@@ -9,7 +9,7 @@
       "label": "تفعيل الشريط العلوي الداكن",
       "id": "topnav_is_dark",
       "format": "switch",
-      "selected": false
+      "value": false
     },
     {
       "type": "string",
@@ -31,6 +31,5 @@
     "component-store-features",
     "component-youtube",
     "filters"
-  ],
-  "components": []
+  ]
 }
