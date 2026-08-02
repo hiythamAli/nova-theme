@@ -6,60 +6,9 @@
   "repository": "https://github.com/hiythamAli/nova-theme",
   "author_email": "hiythamali69@gmail.com",
   "features": [
-    "component-featured-products",
-    "component-fixed-banner",
-    "component-products-slider",
-    "component-photos-slider",
-    "component-testimonials",
-    "component-store-features",
-    "filters"
+    "color",
+    "fonts"
   ],
-  "settings": [
-    {
-      "type": "string",
-      "id": "general_primary_color",
-      "label": "اللون الأساسي",
-      "format": "color",
-      "required": false,
-      "value": "#111111",
-      "selected": "#111111"
-    },
-    {
-      "type": "string",
-      "id": "general_secondary_color",
-      "label": "اللون الثانوي",
-      "format": "color",
-      "required": false,
-      "value": "#F8F8F8",
-      "selected": "#F8F8F8"
-    },
-    {
-      "type": "string",
-      "id": "general_accent_color",
-      "label": "لون التمييز",
-      "format": "color",
-      "required": false,
-      "value": "#C7A76C",
-      "selected": "#C7A76C"
-    },
-    {
-      "type": "boolean",
-      "id": "header_sticky_header",
-      "label": "تثبيت الهيدر عند التمرير",
-      "format": "switch",
-      "required": false,
-      "value": true,
-      "selected": true
-    },
-    {
-      "type": "boolean",
-      "id": "header_announcement_bar",
-      "label": "إظهار الشريط الإعلاني",
-      "format": "switch",
-      "required": false,
-      "value": true,
-      "selected": true
-    }
-  ],
+  "settings": [],
   "components": []
 }
