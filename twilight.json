@@ -9,6 +9,33 @@
     "color",
     "fonts"
   ],
-  "settings": [],
-  "components": []
+  "settings": [
+    {
+      "id": "main_color",
+      "type": "color",
+      "label": {
+        "ar": "اللون الأساسي",
+        "en": "Main Color"
+      },
+      "default": "#000000"
+    }
+  ],
+  "components": [
+    {
+      "id": "header",
+      "type": "section",
+      "label": {
+        "ar": "الهيدر",
+        "en": "Header"
+      }
+    },
+    {
+      "id": "footer",
+      "type": "section",
+      "label": {
+        "ar": "الفوتر",
+        "en": "Footer"
+      }
+    }
+  ]
 }
