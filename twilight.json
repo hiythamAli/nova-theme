@@ -1,41 +1,36 @@
 {
-  "name": {
-    "ar": "نوفا",
-    "en": "NOVA"
-  },
-  "repository": "https://github.com/hiythamAli/nova-theme",
-  "author_email": "hiythamali69@gmail.com",
-  "features": [
-    "color",
-    "fonts"
-  ],
+  "version": "1.0.0",
+  "theme_name": "NOVA",
+  "repo_url": "https://github.com/hiythamAli/nova-theme",
+  "support_url": "https://github.com/hiythamAli/nova-theme",
   "settings": [
     {
-      "id": "main_color",
-      "type": "color",
-      "label": {
-        "ar": "اللون الأساسي",
-        "en": "Main Color"
-      },
-      "default": "#000000"
-    }
-  ],
-  "components": [
-    {
-      "id": "header",
-      "type": "section",
-      "label": {
-        "ar": "الهيدر",
-        "en": "Header"
-      }
+      "type": "boolean",
+      "label": "تفعيل الشريط العلوي الداكن",
+      "id": "topnav_is_dark",
+      "format": "switch",
+      "selected": false
     },
     {
-      "id": "footer",
-      "type": "section",
-      "label": {
-        "ar": "الفوتر",
-        "en": "Footer"
-      }
+      "type": "string",
+      "id": "placeholder",
+      "format": "hidden",
+      "value": "images/img_placeholder.png"
     }
-  ]
+  ],
+  "features": [
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-fixed-products",
+    "component-photos-slider",
+    "component-products-slider",
+    "component-parallax-background",
+    "component-random-testimonials",
+    "component-testimonials",
+    "component-square-photos",
+    "component-store-features",
+    "component-youtube",
+    "filters"
+  ],
+  "components": []
 }
