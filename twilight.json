@@ -1,41 +1,30 @@
 {
-  "name": {
-    "ar": "نوفا",
-    "en": "NOVA"
-  },
-  "repository": "https://github.com/hiythamAli/nova-theme",
-  "author_email": "hiythamali69@gmail.com",
-  "features": [
-    "color",
-    "fonts"
-  ],
+  "version": "1.0.0",
+  "theme_name": "NOVA",
+  "repo_url": "https://github.com/hiythamAli/nova-theme",
+  "support_url": "mailto:hiythamali69@gmail.com",
+  "features": [],
   "settings": [
     {
-      "id": "main_color",
       "type": "color",
-      "label": {
-        "ar": "اللون الأساسي",
-        "en": "Main Color"
-      },
-      "default": "#000000"
+      "format": "color",
+      "id": "main_color",
+      "label": "Main Color",
+      "value": "#000000"
     }
   ],
   "components": [
     {
-      "id": "header",
-      "type": "section",
-      "label": {
-        "ar": "الهيدر",
-        "en": "Header"
-      }
+      "name": "header",
+      "title": "Header",
+      "path": "home.header",
+      "fields": []
     },
     {
-      "id": "footer",
-      "type": "section",
-      "label": {
-        "ar": "الفوتر",
-        "en": "Footer"
-      }
+      "name": "footer",
+      "title": "Footer",
+      "path": "home.footer",
+      "fields": []
     }
   ]
 }
