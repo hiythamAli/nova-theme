@@ -2,8 +2,7 @@
   "version": "1.0.0",
   "theme_name": "NOVA",
   "repo_url": "https://github.com/hiythamAli/nova-theme",
-  "support_url": "mailto:hiythamali69@gmail.com",
-  "features": [],
+  "support_url": "https://github.com/hiythamAli/nova-theme",
   "settings": [
     {
       "type": "color",
@@ -11,6 +10,19 @@
       "id": "main_color",
       "label": "Main Color",
       "value": "#000000"
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل الشريط العلوي الداكن",
+      "id": "topnav_is_dark",
+      "format": "switch",
+      "value": false
+    },
+    {
+      "type": "string",
+      "id": "placeholder",
+      "format": "hidden",
+      "value": "images/img_placeholder.png"
     }
   ],
   "components": [
@@ -26,5 +38,19 @@
       "path": "home.footer",
       "fields": []
     }
+  ],
+  "features": [
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-fixed-products",
+    "component-photos-slider",
+    "component-products-slider",
+    "component-parallax-background",
+    "component-random-testimonials",
+    "component-testimonials",
+    "component-square-photos",
+    "component-store-features",
+    "component-youtube",
+    "filters"
   ]
 }
