@@ -1,8 +1,9 @@
 {
-  "version": "1.0.0",
-  "theme_name": "NOVA",
-  "repo_url": "https://github.com/hiythamAli/nova-theme",
+  "name": { "ar": "نوفا", "en": "NOVA" },
+  "repository": "https://github.com/hiythamAli/nova-theme",
+  "author_email": "hiythamali69@gmail.com",
   "support_url": "https://github.com/hiythamAli/nova-theme",
+  
   "settings": [
     {
       "type": "color",
@@ -25,20 +26,9 @@
       "value": "images/img_placeholder.png"
     }
   ],
-  "components": [
-    {
-      "name": "header",
-      "title": "Header",
-      "path": "home.header",
-      "fields": []
-    },
-    {
-      "name": "footer",
-      "title": "Footer",
-      "path": "home.footer",
-      "fields": []
-    }
-  ],
+ "components": [],
+
+
   "features": [
     "component-featured-products",
     "component-fixed-banner",
