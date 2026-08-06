@@ -7,8 +7,9 @@
   "author": "Haytham Ali",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+  "dev": "vite",
+  "watch": "vite --host 0.0.0.0",
+  "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
