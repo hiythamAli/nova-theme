@@ -25,7 +25,23 @@
       "format": "hidden",
       "value": "images/img_placeholder.png"
     }
-  ],
+
+,
+    {
+      "type": "select",
+      "id": "hero_layout",
+      "label": "Hero Layout",
+      "options": [
+        { "label": "Centered", "value": "centered" },
+        { "label": "Split", "value": "split" },
+        { "label": "Fullscreen", "value": "fullscreen" },
+        { "label": "Grid", "value": "grid" }
+      ],
+      "value": "centered"
+    }
+    
+  ]
+  ,
  "components": [],
 
 
